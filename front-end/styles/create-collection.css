@@ -1,0 +1,418 @@
+.create-container {
+  max-width: 1600px;
+}
+
+.create-form-section {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 1px 8px 46px 0px rgba(235, 235, 235, 0.75);
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.field-help {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+  display: block;
+}
+
+.icon-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.icon-input {
+  width: 80px;
+  text-align: center;
+  font-size: 24px;
+}
+
+.icon-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.icon-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background-color: #f0f0f0;
+  border-color: #5c54f6;
+}
+
+.getting-started-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option-card {
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.option-card:hover {
+  border-color: #5c54f6;
+  background-color: #f8f9ff;
+}
+
+.option-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.option-card input[type="radio"]:checked + .option-radio {
+  background-color: #5c54f6;
+  color: white;
+}
+
+.option-card input[type="radio"]:checked ~ * {
+  color: #5c54f6;
+}
+
+.option-icon {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.option-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.option-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.option-radio {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.attribute-card {
+  position: relative;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.attribute-card:hover {
+  border-color: #5c54f6;
+  background-color: #f8f9ff;
+}
+
+.attribute-card input[type="checkbox"] {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.attribute-card input[type="checkbox"]:checked + .attribute-label {
+  color: #5c54f6;
+}
+
+.attribute-card input[type="checkbox"]:disabled {
+  opacity: 0.6;
+}
+
+.attribute-label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding-right: 30px;
+}
+
+.attribute-icon {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.attribute-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.attribute-desc {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.preview-section {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.collection-preview,
+.attributes-preview,
+.tips-section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 1px 8px 46px 0px rgba(235, 235, 235, 0.75);
+}
+
+.preview-card {
+  text-align: center;
+}
+
+.preview-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.preview-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.preview-type,
+.preview-visibility {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.preview-stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.preview-stat {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5c54f6;
+  background-color: #f0f0ff;
+  padding: 6px 12px;
+  border-radius: 15px;
+}
+
+.preview-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.selected-attributes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selected-attr {
+  background-color: #f0f0ff;
+  color: #5c54f6;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tips-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tips-list li {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.tips-list li:before {
+  content: "•";
+  color: #5c54f6;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .create-content {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-section {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1000px) {
+  .form-field {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .create-form-section {
+    padding: 20px;
+  }
+
+  .attributes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .attribute-card {
+    padding: 12px;
+  }
+
+  .attribute-icon {
+    font-size: 20px;
+  }
+
+  .attribute-name {
+    font-size: 14px;
+  }
+
+  .attribute-desc {
+    font-size: 11px;
+  }
+
+  .icon-suggestions {
+    justify-content: center;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .preview-section {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-form-section {
+    padding: 15px;
+  }
+
+  .attribute-card {
+    padding: 10px;
+  }
+
+  .attribute-card input[type="checkbox"] {
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .icon-btn {
+    padding: 6px;
+    font-size: 18px;
+  }
+
+  .preview-icon {
+    font-size: 40px;
+  }
+
+  .preview-name {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,6 @@
+<!-- filepath: /Users/biancabaltag/Documents/GitHub/WEB_OCo_Arseni-Baltag/front-end/placeholder.svg -->
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="120" height="120" rx="20" fill="#e0e0e0"/>
+  <circle cx="60" cy="50" r="25" fill="#bdbdbd"/>
+  <rect x="30" y="85" width="60" height="15" rx="7.5" fill="#bdbdbd"/>
+</svg>

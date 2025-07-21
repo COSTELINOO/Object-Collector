@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+      content="Create custom collections in Collect.me. Define object attributes, set visibility, and organize your collectibles with personalized collection types and properties.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/global1.css">
+    <link rel="stylesheet" href="styles/create-collection.css">
+
+    <title>Create Collection - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a
+            href="#"
+            class="button small-button"
+            onclick="window.history.back(); return false;">← Back</a>
+          <button
+            id="logout-button"
+            class="button small-button">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item active">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Create Custom Collection</p>
+            <p class="section-description">
+              Define your collection name and object attributes
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="create-container">
+              <div class="create-content">
+                <div class="create-form-section">
+                  <form class="create-form" id="create-collection-form">
+                    <div class="form-section">
+                      <h3 class="section-title">Collection Information</h3>
+
+                      <div class="form-field">
+                        <label for="collection-name"
+                          class="sub_title">Collection Name *</label>
+                        <input
+                          type="text"
+                          id="collection-name"
+                          class="field"
+                          placeholder="e.g., Vintage Watches, Comic Books, etc."
+                          required>
+
+                      </div>
+
+                      <div class="form-field">
+                        <label for="collection-visibility"
+                          class="sub_title">Type*</label>
+                        <select id="collection-type" class="field">
+                          <option value="custom" selected>📦 Custom</option>
+                          <option value="viniluri">🎶 Viniluri</option>
+                          <option value="tablouri">🖼️ Tablouri</option>
+                          <option value="timbre">🎫 Timbre</option>
+                          <option value="monede">🪙 Monede</option>
+                        </select>
+                      </div>
+
+                      <div class="form-field">
+                        <label for="collection-visibility"
+                          class="sub_title">Visibility</label>
+                        <select id="collection-visibility" class="field">
+                          <option value="true" selected>
+                            🌍 Public - Anyone can see this collection
+                          </option>
+                          <option value="false">
+                            🔒 Private - Only you can see this collection
+                          </option>
+                        </select>
+                      </div>
+
+                    </div>
+
+                    <div class="form-section" id="attributes-section">
+                      <h3 class="section-title">Object Attributes</h3>
+                      <p class="section-description">
+                        Select which attributes objects in this collection
+                        should have
+                      </p>
+
+                      <div class="attributes-grid">
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-name"
+                            name="attributes"
+                            value="nume_colectie"
+                            checked
+                            disabled>
+                          <label for="attr-name" class="attribute-label">
+                            <span class="attribute-icon">📝</span>
+                            <span class="attribute-name">Name</span>
+                            <span class="attribute-desc">Object name
+                              (required)</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-description"
+                            name="attributes"
+                            value="descriere"
+                            checked
+                            disabled>
+                          <label for="attr-description" class="attribute-label">
+                            <span class="attribute-icon">📄</span>
+                            <span class="attribute-name">Description</span>
+                            <span class="attribute-desc">Object description
+                              (required)</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-image"
+                            name="attributes"
+                            value="imagine"
+                            checked
+                            disabled>
+                          <label for="attr-image" class="attribute-label">
+                            <span class="attribute-icon">🖼️</span>
+                            <span class="attribute-name">Image</span>
+                            <span class="attribute-desc">Object photo
+                              (required)</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-value"
+                            name="attributes"
+                            value="valoare"
+                            checked
+                            disabled>
+                          <label for="attr-value" class="attribute-label">
+                            <span class="attribute-icon">💰</span>
+                            <span class="attribute-name">Value</span>
+                            <span class="attribute-desc">Current estimated value
+                              (required)</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-country"
+                            name="attributes"
+                            value="tara">
+                          <label for="attr-country" class="attribute-label">
+                            <span class="attribute-icon">🌍</span>
+                            <span class="attribute-name">Country</span>
+                            <span class="attribute-desc">Country of
+                              origin</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-year"
+                            name="attributes"
+                            value="an">
+                          <label for="attr-year" class="attribute-label">
+                            <span class="attribute-icon">📅</span>
+                            <span class="attribute-name">Year</span>
+                            <span class="attribute-desc">Year of
+                              creation/manufacture</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-condition"
+                            name="attributes"
+                            value="stare">
+                          <label for="attr-condition" class="attribute-label">
+                            <span class="attribute-icon">⭐</span>
+                            <span class="attribute-name">Condition</span>
+                            <span class="attribute-desc">Physical
+                              condition</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-rarity"
+                            name="attributes"
+                            value="raritate">
+                          <label for="attr-rarity" class="attribute-label">
+                            <span class="attribute-icon">💎</span>
+                            <span class="attribute-name">Rarity</span>
+                            <span class="attribute-desc">How rare the object
+                              is</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-purchase-price"
+                            name="attributes"
+                            value="pret_achizitie">
+                          <label
+                            for="attr-purchase-price"
+                            class="attribute-label">
+                            <span class="attribute-icon">🛒</span>
+                            <span class="attribute-name">Purchase Price</span>
+                            <span class="attribute-desc">Original purchase
+                              price</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-material"
+                            name="attributes"
+                            value="material">
+                          <label for="attr-material" class="attribute-label">
+                            <span class="attribute-icon">🧱</span>
+                            <span class="attribute-name">Material</span>
+                            <span class="attribute-desc">What it's made
+                              of</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-weight"
+                            name="attributes"
+                            value="greutate">
+                          <label for="attr-weight" class="attribute-label">
+                            <span class="attribute-icon">⚖️</span>
+                            <span class="attribute-name">Weight</span>
+                            <span class="attribute-desc">Physical weight</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-artist"
+                            name="attributes"
+                            value="nume_artist">
+                          <label for="attr-artist" class="attribute-label">
+                            <span class="attribute-icon">🎨</span>
+                            <span class="attribute-name">Artist/Creator</span>
+                            <span class="attribute-desc">Who created it</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-theme"
+                            name="attributes"
+                            value="tematica">
+                          <label for="attr-theme" class="attribute-label">
+                            <span class="attribute-icon">🎭</span>
+                            <span class="attribute-name">Theme</span>
+                            <span class="attribute-desc">Theme or subject</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-genre"
+                            name="attributes"
+                            value="gen">
+                          <label for="attr-genre" class="attribute-label">
+                            <span class="attribute-icon">🎵</span>
+                            <span class="attribute-name">Genre</span>
+                            <span class="attribute-desc">Genre or
+                              category</span>
+                          </label>
+                        </div>
+
+                        <div class="attribute-card">
+                          <input
+                            type="checkbox"
+                            id="attr-publisher"
+                            name="attributes"
+                            value="casa_discuri">
+                          <label for="attr-publisher" class="attribute-label">
+                            <span class="attribute-icon">🏢</span>
+                            <span class="attribute-name">Publisher/Label</span>
+                            <span class="attribute-desc">Publishing
+                              company</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-actions">
+                      <button type="submit" class="button submit_button">
+                        Create Collection
+                      </button>
+
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script src="./scripts/create-collection.js"></script>
+  </body>
+</html>

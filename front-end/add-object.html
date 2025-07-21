@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Add new collectible objects to your Collect.me collections. Upload images, set values, and organize your precious items with detailed specifications and financial tracking."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles/global1.css" />
+    <link rel="stylesheet" href="styles/add-object.css" />
+
+    <title>Add Object - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a
+            href="#"
+            class="button small-button"
+            onclick="window.history.back(); return false;"
+            >← Back</a
+          >
+          <button
+            href="login.html"
+            id="logout-button"
+            class="button small-button"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="collections.html" class="nav-item active">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Add New Object</p>
+            <p class="section-description">
+              Add a new object to your Monede collection
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="add-object-container">
+              <div class="add-content">
+                <div class="form-section">
+                  <form class="add-object-form" id="add-object-form">
+                    <!-- Basic Information -->
+                    <div class="form-group">
+                      <h3 class="group-title">Basic Information</h3>
+
+                      <div class="form-field required-field">
+                        <label for="object-name" class="sub_title"
+                          >Object Name *</label
+                        >
+                        <input
+                          type="text"
+                          id="object-name"
+                          class="field"
+                          placeholder="Enter object name"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-description" class="sub_title"
+                          >Description *</label
+                        >
+                        <textarea
+                          id="object-description"
+                          class="field textarea"
+                          rows="4"
+                          placeholder="Describe the object..."
+                          required
+                        ></textarea>
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-image" class="sub_title"
+                          >Image *</label
+                        >
+                        <div class="image-upload">
+                          <input
+                            type="file"
+                            id="object-image"
+                            accept="image/*"
+                            style="display: none"
+                            required
+                          />
+                          <div class="image-preview" id="image-preview">
+                            <div class="upload-placeholder">
+                              <span class="upload-icon">📷</span>
+                              <span class="upload-text"
+                                >Click to upload image</span
+                              >
+                            </div>
+                          </div>
+                          <button
+                            type="button"
+                            class="button small-button"
+                            onclick="document.getElementById('object-image').click()"
+                          >
+                            Choose Image
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-visibility" class="sub_title"
+                          >Visibility *</label
+                        >
+                        <select id="object-visibility" class="field" required>
+                          <option value="true" selected>
+                            🌍 Public - Visible to everyone
+                          </option>
+                          <option value="false">
+                            🔒 Private - Only visible to you
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!-- Financial Information -->
+                    <div class="form-group">
+                      <h3 class="group-title">Financial Information</h3>
+
+                      <div class="form-row">
+                        <div class="form-field required-field">
+                          <label for="object-value" class="sub_title"
+                            >Current Value ($) *</label
+                          >
+                          <input
+                            type="number"
+                            id="object-value"
+                            class="field"
+                            placeholder="0.00"
+                            step="0.01"
+                            min="0"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-purchase-price" class="sub_title"
+                            >Purchase Price ($)</label
+                          >
+                          <input
+                            type="number"
+                            id="object-purchase-price"
+                            class="field"
+                            placeholder="0.00"
+                            step="0.01"
+                            min="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- origin & dating -->
+                    <div class="form-group">
+                      <h3 class="group-title">Origin & Dating</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-country" class="sub_title"
+                            >Country</label
+                          >
+                          <input
+                            type="text"
+                            id="object-country"
+                            class="field"
+                            placeholder="e.g., USA, Romania, etc."
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-year" class="sub_title"
+                            >Year</label
+                          >
+                          <input
+                            type="number"
+                            id="object-year"
+                            class="field"
+                            placeholder="e.g., 1909"
+                            min="1"
+                            max="2024"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- physical properties -->
+                    <div class="form-group">
+                      <h3 class="group-title">Physical Properties</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-condition" class="sub_title"
+                            >Condition</label
+                          >
+                          <select id="object-condition" class="field">
+                            <option value="">Select condition</option>
+                            <option value="Mint">
+                              Mint - Perfect condition
+                            </option>
+                            <option value="Excellent">
+                              Excellent - Near perfect
+                            </option>
+                            <option value="Very Good">
+                              Very Good - Minor wear
+                            </option>
+                            <option value="Good">Good - Moderate wear</option>
+                            <option value="Fair">
+                              Fair - Significant wear
+                            </option>
+                            <option value="Poor">Poor - Heavy wear</option>
+                          </select>
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-rarity" class="sub_title"
+                            >Rarity</label
+                          >
+                          <select id="object-rarity" class="field">
+                            <option value="">Select rarity</option>
+                            <option value="Common">Common</option>
+                            <option value="Uncommon">Uncommon</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Very Rare">Very Rare</option>
+                            <option value="Extremely Rare">
+                              Extremely Rare
+                            </option>
+                            <option value="Unique">Unique</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-material" class="sub_title"
+                            >Material</label
+                          >
+                          <input
+                            type="text"
+                            id="object-material"
+                            class="field"
+                            placeholder="e.g., Bronze, Silver, Gold, etc."
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-weight" class="sub_title"
+                            >Weight (grams)</label
+                          >
+                          <input
+                            type="number"
+                            id="object-weight"
+                            class="field"
+                            placeholder="0"
+                            step="0.01"
+                            min="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- creative information -->
+                    <div class="form-group">
+                      <h3 class="group-title">Creative Information</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-artist" class="sub_title"
+                            >Artist/Creator</label
+                          >
+                          <input
+                            type="text"
+                            id="object-artist"
+                            class="field"
+                            placeholder="Name of artist or creator"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-publisher" class="sub_title"
+                            >Publisher/Label</label
+                          >
+                          <input
+                            type="text"
+                            id="object-publisher"
+                            class="field"
+                            placeholder="Publishing company or label"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-theme" class="sub_title"
+                            >Theme</label
+                          >
+                          <input
+                            type="text"
+                            id="object-theme"
+                            class="field"
+                            placeholder="Theme or subject matter"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-genre" class="sub_title"
+                            >Genre</label
+                          >
+                          <input
+                            type="text"
+                            id="object-genre"
+                            class="field"
+                            placeholder="Genre or category"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-actions">
+                      <button type="submit" class="button submit_button">
+                        Add Object
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- success modal -->
+    <div id="success-modal" class="modal-overlay">
+      <div class="modal-content success-modal">
+        <div class="modal-icon">✅</div>
+        <h3 class="modal-title">Object Added Successfully!</h3>
+        <p class="modal-message">
+          Your object has been added to the collection.
+        </p>
+        <div class="modal-actions">
+          <button class="button submit_button" id="view-object-btn">
+            View Object
+          </button>
+          <button class="button small-button" id="add-another-btn">
+            Add Another
+          </button>
+          <button class="button small-button" id="back-to-collection-btn">
+            Back to Collection
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="./scripts/auth-middleware.js "></script>
+
+  <script src="./scripts/global.js"></script>
+
+  <script>
+    document
+      .getElementById("object-description")
+      .addEventListener("input", function () {
+        document.getElementById("preview-description").textContent =
+          this.value || "Object description will appear here...";
+      });
+
+    document
+      .getElementById("object-value")
+      .addEventListener("input", function () {
+        document.getElementById("preview-value").textContent =
+          "$" + (this.value || "0.00");
+      });
+
+    document
+      .getElementById("object-visibility")
+      .addEventListener("change", function () {
+        const isPublic = this.value === "true";
+        document.getElementById("preview-visibility").textContent = isPublic
+          ? "🌍 Public"
+          : "🔒 Private";
+      });
+
+    // form submission
+    document
+      .getElementById("add-object-form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // validate required fields
+        const requiredFields = this.querySelectorAll("[required]");
+        let isValid = true;
+
+        requiredFields.forEach((field) => {
+          if (!field.value.trim()) {
+            field.style.borderColor = "#dc3545";
+            isValid = false;
+          } else {
+            field.style.borderColor = "";
+          }
+        });
+
+        if (!isValid) {
+          alert("Please fill in all required fields");
+          return;
+        }
+
+        // show success modal
+        document.getElementById("success-modal").classList.add("active");
+      });
+
+    // save draft functionality
+    document
+      .getElementById("save-draft-btn")
+      .addEventListener("click", function () {
+        document.getElementById("draft-modal").classList.add("active");
+      });
+
+    // modal actions
+    document
+      .getElementById("view-object-btn")
+      .addEventListener("click", function () {
+        window.location.href = "view-object.html?id=new";
+      });
+
+    document
+      .getElementById("add-another-btn")
+      .addEventListener("click", function () {
+        document.getElementById("success-modal").classList.remove("active");
+        document.getElementById("add-object-form").reset();
+        document.getElementById("image-preview").innerHTML =
+          '<div class="upload-placeholder"><span class="upload-icon">📷</span><span class="upload-text">Click to upload image</span></div>';
+        document.getElementById("preview-image").innerHTML =
+          '<span class="preview-placeholder">📷</span>';
+        document.getElementById("preview-name").textContent = "Object Name";
+        document.getElementById("preview-description").textContent =
+          "Object description will appear here...";
+        document.getElementById("preview-value").textContent = "$0.00";
+        document.getElementById("preview-visibility").textContent = "🌍 Public";
+      });
+
+    document
+      .getElementById("back-to-collection-btn")
+      .addEventListener("click", function () {
+        window.location.href = "view-collection.html";
+      });
+
+    document
+      .getElementById("confirm-draft-btn")
+      .addEventListener("click", function () {
+        document.getElementById("draft-modal").classList.remove("active");
+        alert("Draft saved successfully!");
+      });
+
+    document
+      .getElementById("cancel-draft-btn")
+      .addEventListener("click", function () {
+        document.getElementById("draft-modal").classList.remove("active");
+      });
+
+    // close modals when clicking outside
+    document.querySelectorAll(".modal-overlay").forEach((modal) => {
+      modal.addEventListener("click", function (e) {
+        if (e.target === this) {
+          this.classList.remove("active");
+        }
+      });
+    });
+  </script>
+</html>

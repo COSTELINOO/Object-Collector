@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="View and manage your Collect.me collections. Browse objects, track values, export data, and organize your collectibles with powerful collection management tools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/global1.css">
+    <link rel="stylesheet" href="styles/view-collection.css">
+
+    <title>View Collection - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a
+            href="#"
+            class="button small-button"
+            onclick="window.history.back(); return false;">← Back</a>
+          <button
+            id="logout-button"
+            class="button small-button">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item active">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Collection page</p>
+            <p class="section-description"></p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="collection-header">
+              <div class="collection-info">
+                <div class="collection-icon-large" id="collection-icon">🪙</div>
+                <div class="collection-details">
+                  <h1 class="collection-title" id="collection-title">
+                    Monede Rare
+                  </h1>
+                  <p class="collection-type" id="collection-type">
+                    Tip: MONEDE
+                  </p>
+                  <p class="collection-visibility" id="collection-visibility">
+                    Vizibilitate: Publică
+                  </p>
+                  <div class="collection-stats">
+                    <span class="stat-item" id="collection-objects">47
+                      obiecte</span>
+                    <span class="stat-item" id="collection-value">Valoare
+                      totală: $1,450</span>
+                    <span class="stat-item" id="collection-views">124
+                      vizualizări</span>
+                    <span class="stat-item" id="collection-likes">18
+                      aprecieri</span>
+                  </div>
+                  <div class="collection-actions">
+                    <a
+                      href="page_edit-collection.html?id=1"
+                      class="button submit_button"
+                      id="edit-collection-link">Edit Collection</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="objects-section">
+              <div class="section-header">
+                <h2 class="section-title">Objects in Collection</h2>
+
+                <a
+                  href="page_add-object.html"
+                  class="button submit_button add-object-btn">
+                  + Add Object
+                </a>
+              </div>
+
+              <div class="objects-grid">
+                <div class="object-card">
+                  <div class="object-image">
+                    <img
+                      src="/placeholder.svg?height=200&width=200"
+                      alt="1893-S Morgan Dollar">
+                  </div>
+                  <div class="object-info">
+                    <h3 class="object-name">1893-S Morgan Dollar</h3>
+                    <p class="object-description">
+                      Dolar Morgan din San Francisco
+                    </p>
+
+                    <div class="object-value">
+                      <span class="price">$200</span>
+                    </div>
+                  </div>
+                  <div class="object-actions">
+                    <a href="page_view-object.html"
+                      class="action-btn view-btn">👁️</a>
+
+                    <!-- <a href="page_edit-object.html"
+                      class="action-btn edit-btn">✏️</a> -->
+
+                    <button class="action-btn delete-btn">🗑️</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script src="./scripts/view-collection.js">
+      
+    </script>
+  </body>
+</html>

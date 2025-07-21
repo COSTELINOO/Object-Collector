@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <meta
+      name="description"
+      content="View detailed information about your collectible objects in Collect.me. See current values, specifications, images, and statistics for your precious collectibles." >
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;1,900&display=swap"
+      rel="stylesheet" >
+
+    <link rel="stylesheet" href="styles/global1.css" >
+    <link rel="stylesheet" href="styles/view-object.css" >
+
+    <title>View Object - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a
+            href="#"
+            class="button small-button"
+            onclick="window.history.back(); return false;">← Back</a>
+          <button
+            
+            id="logout-button"
+            class="button small-button">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item active">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">1909-S VDB Lincoln Cent</p>
+            <p class="section-description">
+              Detailed view of your collectible object
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="object-header">
+              <div class="object-actions">
+                <!-- <button class="button submit_button" id="edit-object-btn">
+                  ✏️ Edit Object
+                </button> -->
+                <button class="button small-button" id="export-json-btn">
+                  📄 Export Object
+                </button>
+              </div>
+            </div>
+
+            <div class="object-main-section">
+              <div class="object-image-info">
+                <div class="object-image-large">
+                  <img
+                    src="/placeholder.svg?height=400&width=400"
+                    alt="1909-S VDB Lincoln Cent"
+                    id="main-image" >
+                  <div class="image-actions">
+                    <button class="button small-button" id="zoom-btn">
+                      🔍 Zoom
+                    </button>
+                  </div>
+                </div>
+
+                <div class="object-basic-info">
+                  <h1 class="object-title">1909-S VDB Lincoln Cent</h1>
+                  <p class="object-description">
+                    Monedă rară din primul an de emisie Lincoln cu inițialele
+                    designerului Victor David Brenner. Această monedă este
+                    considerată una dintre cele mai căutate monede americane din
+                    secolul XX.
+                  </p>
+
+                  <div class="value-section">
+                    <div class="value-item">
+                      <span class="value-label">Current Value</span>
+                      <span class="value-amount current">$850.00</span>
+                    </div>
+                  </div>
+
+                  <div class="visibility-status">
+                    <span class="visibility-badge public">🌍 Public</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="object-details-section">
+              <h3 class="section-title">Object Details</h3>
+              <div class="details-grid">
+                <div class="detail-group">
+                  <h4 class="group-title">Origin & Dating</h4>
+                  <div class="detail-items">
+                    <div class="detail-item">
+                      <span class="detail-label">Country:</span>
+                      <span class="detail-value">United States</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Year:</span>
+                      <span class="detail-value">1909</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-group">
+                  <h4 class="group-title">Physical Properties</h4>
+                  <div class="detail-items">
+                    <div class="detail-item">
+                      <span class="detail-label">Condition:</span>
+                      <span
+                        class="detail-value condition excellent">Excellent</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Rarity:</span>
+                      <span class="detail-value rarity very-rare">Very
+                        Rare</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Material:</span>
+                      <span class="detail-value">Bronze (95% Copper, 5% Tin and
+                        Zinc)</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Weight:</span>
+                      <span class="detail-value">3.11 grams</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="detail-group">
+                  <h4 class="group-title">Creative Information</h4>
+                  <div class="detail-items">
+                    <div class="detail-item">
+                      <span class="detail-label">Designer:</span>
+                      <span class="detail-value">Victor David Brenner</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Mint:</span>
+                      <span class="detail-value">San Francisco Mint</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Theme:</span>
+                      <span class="detail-value">Presidential Portrait</span>
+                    </div>
+                    <div class="detail-item">
+                      <span class="detail-label">Series:</span>
+                      <span class="detail-value">Lincoln Wheat Cent</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="object-stats-section">
+              <h3 class="section-title">Statistics</h3>
+              <div class="stats-grid">
+                <div class="stat-item stat-item--views">
+                  <span class="stat-icon">👁️</span>
+                  <span class="stat-number"></span>
+                  <span class="stat-label">Views</span>
+                </div>
+                <div class="stat-item stat-item--likes">
+                  <span class="stat-icon">❤️</span>
+                  <span class="stat-number"></span>
+                  <span class="stat-label">Likes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script src="./scripts/view-object.js"></script>
+  </body>
+</html>

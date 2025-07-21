@@ -1,0 +1,164 @@
+.edit-container {
+  max-width: 1600px;
+}
+
+.edit-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 1px 8px 46px 0px rgba(235, 235, 235, 0.75);
+}
+
+.form-section {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quick-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.recent-objects {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.object-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.object-icon {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.object-details {
+  flex: 1;
+}
+
+.object-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.object-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.object-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn.edit:hover {
+  background-color: #ffc107;
+}
+
+.action-btn.delete:hover {
+  background-color: #dc3545;
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.danger-btn {
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.danger-btn:hover {
+  background-color: #c82333;
+  border-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  .quick-actions {
+    flex-direction: column;
+  }
+
+  .object-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .object-actions {
+    align-self: flex-end;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-form {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .form-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

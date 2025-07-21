@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Edit and update your collectible objects in Collect.me. Modify values, descriptions, images, and properties to keep your collection information current and accurate."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles/global1.css" />
+    <link rel="stylesheet" href="styles/add-object.css" />
+
+    <title>Edit Object - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a
+            href="#"
+            class="button small-button"
+            onclick="window.history.back(); return false;"
+            >← Back</a
+          >
+          <button
+            href="login.html"
+            id="logout-button"
+            class="button small-button"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="collections.html" class="nav-item active">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Edit Object</p>
+            <p class="section-description">Update your object information</p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="add-object-container">
+              <div class="add-content">
+                <div class="form-section">
+                  <form class="add-object-form" id="edit-object-form">
+                    <!-- Basic Information -->
+                    <div class="form-group">
+                      <h3 class="group-title">Basic Information</h3>
+
+                      <div class="form-field required-field">
+                        <label for="object-name" class="sub_title"
+                          >Object Name *</label
+                        >
+                        <input
+                          type="text"
+                          id="object-name"
+                          class="field"
+                          value="1909-S VDB Lincoln Cent"
+                          required
+                        />
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-description" class="sub_title"
+                          >Description *</label
+                        >
+                        <textarea
+                          id="object-description"
+                          class="field textarea"
+                          rows="4"
+                          required
+                        >
+Monedă rară din primul an de emisie Lincoln cu inițialele designerului Victor David Brenner. Această monedă este considerată una dintre cele mai căutate monede americane din secolul XX.</textarea
+                        >
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-image" class="sub_title"
+                          >Image *</label
+                        >
+                        <div class="image-upload">
+                          <input
+                            type="file"
+                            id="object-image"
+                            accept="image/*"
+                            style="display: none"
+                          />
+                          <div class="image-preview" id="image-preview">
+                            <img
+                              src="/placeholder.svg?height=200&width=200"
+                              alt="Current image"
+                              style="
+                                width: 100%;
+                                height: 200px;
+                                object-fit: cover;
+                                border-radius: 8px;
+                              "
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            class="button small-button"
+                            onclick="document.getElementById('object-image').click()"
+                          >
+                            Change Image
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="form-field required-field">
+                        <label for="object-visibility" class="sub_title"
+                          >Visibility *</label
+                        >
+                        <select id="object-visibility" class="field" required>
+                          <option value="true" selected>
+                            🌍 Public - Visible to everyone
+                          </option>
+                          <option value="false">
+                            🔒 Private - Only visible to you
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <h3 class="group-title">Financial Information</h3>
+
+                      <div class="form-row">
+                        <div class="form-field required-field">
+                          <label for="object-value" class="sub_title"
+                            >Current Value ($) *</label
+                          >
+                          <input
+                            type="number"
+                            id="object-value"
+                            class="field"
+                            value="850.00"
+                            step="0.01"
+                            min="0"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-purchase-price" class="sub_title"
+                            >Purchase Price ($)</label
+                          >
+                          <input
+                            type="number"
+                            id="object-purchase-price"
+                            class="field"
+                            value="600.00"
+                            step="0.01"
+                            min="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Origin & Dating -->
+                    <div class="form-group">
+                      <h3 class="group-title">Origin & Dating</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-country" class="sub_title"
+                            >Country</label
+                          >
+                          <input
+                            type="text"
+                            id="object-country"
+                            class="field"
+                            value="United States"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-year" class="sub_title"
+                            >Year</label
+                          >
+                          <input
+                            type="number"
+                            id="object-year"
+                            class="field"
+                            value="1909"
+                            min="1"
+                            max="2024"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- physical properties -->
+                    <div class="form-group">
+                      <h3 class="group-title">Physical Properties</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-condition" class="sub_title"
+                            >Condition</label
+                          >
+                          <select id="object-condition" class="field">
+                            <option value="">Select condition</option>
+                            <option value="Mint">
+                              Mint - Perfect condition
+                            </option>
+                            <option value="Excellent" selected>
+                              Excellent - Near perfect
+                            </option>
+                            <option value="Very Good">
+                              Very Good - Minor wear
+                            </option>
+                            <option value="Good">Good - Moderate wear</option>
+                            <option value="Fair">
+                              Fair - Significant wear
+                            </option>
+                            <option value="Poor">Poor - Heavy wear</option>
+                          </select>
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-rarity" class="sub_title"
+                            >Rarity</label
+                          >
+                          <select id="object-rarity" class="field">
+                            <option value="">Select rarity</option>
+                            <option value="Common">Common</option>
+                            <option value="Uncommon">Uncommon</option>
+                            <option value="Rare">Rare</option>
+                            <option value="Very Rare" selected>
+                              Very Rare
+                            </option>
+                            <option value="Extremely Rare">
+                              Extremely Rare
+                            </option>
+                            <option value="Unique">Unique</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-material" class="sub_title"
+                            >Material</label
+                          >
+                          <input
+                            type="text"
+                            id="object-material"
+                            class="field"
+                            value="Bronze (95% Copper, 5% Tin and Zinc)"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-weight" class="sub_title"
+                            >Weight (grams)</label
+                          >
+                          <input
+                            type="number"
+                            id="object-weight"
+                            class="field"
+                            value="3.11"
+                            step="0.01"
+                            min="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- creative information -->
+                    <div class="form-group">
+                      <h3 class="group-title">Creative Information</h3>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-artist" class="sub_title"
+                            >Artist/Creator</label
+                          >
+                          <input
+                            type="text"
+                            id="object-artist"
+                            class="field"
+                            value="Victor David Brenner"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-publisher" class="sub_title"
+                            >Publisher/Label</label
+                          >
+                          <input
+                            type="text"
+                            id="object-publisher"
+                            class="field"
+                            value="San Francisco Mint"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="form-row">
+                        <div class="form-field">
+                          <label for="object-theme" class="sub_title"
+                            >Theme</label
+                          >
+                          <input
+                            type="text"
+                            id="object-theme"
+                            class="field"
+                            value="Presidential Portrait"
+                          />
+                        </div>
+
+                        <div class="form-field">
+                          <label for="object-genre" class="sub_title"
+                            >Genre</label
+                          >
+                          <input
+                            type="text"
+                            id="object-genre"
+                            class="field"
+                            value="Lincoln Wheat Cent"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-actions">
+                      <button type="submit" class="button submit_button">
+                        Save Changes
+                      </button>
+
+                      <button
+                        type="button"
+                        class="button danger-btn"
+                        id="delete-object-btn"
+                      >
+                        Delete Object
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="preview-section">
+                  <h3 class="section-title">Preview</h3>
+                  <div class="object-preview">
+                    <div class="preview-image" id="preview-image">
+                      <img
+                        src="/placeholder.svg?height=150&width=150"
+                        alt="Preview"
+                        style="
+                          width: 100%;
+                          height: 100%;
+                          object-fit: cover;
+                          border-radius: 8px;
+                        "
+                      />
+                    </div>
+                    <div class="preview-info">
+                      <h4 class="preview-name" id="preview-name">
+                        1909-S VDB Lincoln Cent
+                      </h4>
+                      <p class="preview-description" id="preview-description">
+                        Monedă rară din primul an de emisie Lincoln...
+                      </p>
+                      <div class="preview-details">
+                        <span class="preview-value" id="preview-value"
+                          >$850.00</span
+                        >
+                        <span class="preview-visibility" id="preview-visibility"
+                          >🌍 Public</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="changes-summary">
+                    <h4 class="summary-title">📝 Changes Made</h4>
+                    <div class="changes-list" id="changes-list">
+                      <p class="no-changes">No changes made yet</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- success modal -->
+    <div id="success-modal" class="modal-overlay">
+      <div class="modal-content success-modal">
+        <div class="modal-icon">✅</div>
+        <h3 class="modal-title">Object Updated Successfully!</h3>
+        <p class="modal-message">Your changes have been saved.</p>
+        <div class="modal-actions">
+          <button class="button submit_button" id="view-object-btn">
+            View Object
+          </button>
+          <button class="button small-button" id="continue-editing-btn">
+            Continue Editing
+          </button>
+          <button class="button small-button" id="back-to-collection-btn">
+            Back to Collection
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="delete-modal" class="modal-overlay">
+      <div class="modal-content danger-modal">
+        <div class="modal-icon">⚠️</div>
+        <h3 class="modal-title">Delete Object</h3>
+        <p class="modal-message">
+          Are you sure you want to delete this object? This action cannot be
+          undone.
+        </p>
+        <div class="modal-actions">
+          <button class="button danger-btn" id="confirm-delete-btn">
+            Delete Object
+          </button>
+          <button class="button small-button" id="cancel-delete-btn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script>
+      // store original values for change tracking
+      const originalValues = {};
+      const formFields = document.querySelectorAll("input, textarea, select");
+      formFields.forEach((field) => {
+        originalValues[field.id] = field.value;
+      });
+
+      // track changes
+      function trackChanges() {
+        const changesList = document.getElementById("changes-list");
+        const changes = [];
+
+        formFields.forEach((field) => {
+          if (field.value !== originalValues[field.id]) {
+            const label = document
+              .querySelector(`label[for="${field.id}"]`)
+              .textContent.replace(" *", "");
+            changes.push(
+              `${label}: "${originalValues[field.id]}" → "${field.value}"`
+            );
+          }
+        });
+
+        if (changes.length === 0) {
+          changesList.innerHTML =
+            '<p class="no-changes">No changes made yet</p>';
+        } else {
+          changesList.innerHTML = changes
+            .map((change) => `<p class="change-item">• ${change}</p>`)
+            .join("");
+        }
+      }
+
+      formFields.forEach((field) => {
+        field.addEventListener("input", trackChanges);
+        field.addEventListener("change", trackChanges);
+      });
+
+      document
+        .getElementById("object-image")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const preview = document.getElementById("image-preview");
+              const previewImage = document.getElementById("preview-image");
+
+              preview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;">`;
+              previewImage.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+
+      // real-time preview updates
+      document
+        .getElementById("object-name")
+        .addEventListener("input", function () {
+          document.getElementById("preview-name").textContent =
+            this.value || "Object Name";
+        });
+
+      document
+        .getElementById("object-description")
+        .addEventListener("input", function () {
+          const desc = this.value || "Object description will appear here...";
+          document.getElementById("preview-description").textContent =
+            desc.length > 50 ? desc.substring(0, 50) + "..." : desc;
+        });
+
+      document
+        .getElementById("object-value")
+        .addEventListener("input", function () {
+          document.getElementById("preview-value").textContent =
+            "$" + (this.value || "0.00");
+        });
+
+      document
+        .getElementById("object-visibility")
+        .addEventListener("change", function () {
+          const isPublic = this.value === "true";
+          document.getElementById("preview-visibility").textContent = isPublic
+            ? "🌍 Public"
+            : "🔒 Private";
+        });
+
+      // form submission
+      document
+        .getElementById("edit-object-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // validate required fields
+          const requiredFields = this.querySelectorAll("[required]");
+          let isValid = true;
+
+          requiredFields.forEach((field) => {
+            if (!field.value.trim()) {
+              field.style.borderColor = "#dc3545";
+              isValid = false;
+            } else {
+              field.style.borderColor = "";
+            }
+          });
+
+          if (!isValid) {
+            alert("Please fill in all required fields");
+            return;
+          }
+
+          // show success modal
+          document.getElementById("success-modal").classList.add("active");
+        });
+
+      // delete functionality
+      document
+        .getElementById("delete-object-btn")
+        .addEventListener("click", function () {
+          document.getElementById("delete-modal").classList.add("active");
+        });
+
+      document
+        .getElementById("confirm-delete-btn")
+        .addEventListener("click", function () {
+          document.getElementById("delete-modal").classList.remove("active");
+          alert("Object deleted successfully!");
+          window.location.href = "view-collection.html";
+        });
+
+      // modal actions
+      document
+        .getElementById("view-object-btn")
+        .addEventListener("click", function () {
+          window.location.href = "view-object.html";
+        });
+
+      document
+        .getElementById("continue-editing-btn")
+        .addEventListener("click", function () {
+          document.getElementById("success-modal").classList.remove("active");
+          // update original values
+          formFields.forEach((field) => {
+            originalValues[field.id] = field.value;
+          });
+          trackChanges();
+        });
+
+      document
+        .getElementById("back-to-collection-btn")
+        .addEventListener("click", function () {
+          window.location.href = "view-collection.html";
+        });
+
+      document
+        .getElementById("cancel-delete-btn")
+        .addEventListener("click", function () {
+          document.getElementById("delete-modal").classList.remove("active");
+        });
+
+      // close modals when clicking outside
+      document.querySelectorAll(".modal-overlay").forEach((modal) => {
+        modal.addEventListener("click", function (e) {
+          if (e.target === this) {
+            this.classList.remove("active");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

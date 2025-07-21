@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Discover amazing collections from the Collect.me community. Explore trending collectibles, popular items, and find inspiration for your own collecting journey."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles/auth1.css" />
+    <link rel="stylesheet" href="styles/global1.css" />
+    <link rel="stylesheet" href="styles/explore.css" />
+
+    <title>Collections</title>
+  </head>
+
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+
+        <div class="header_nav">
+          <a href="explore.html" class="button small-button">Landing</a>
+          <button
+            href="login.html"
+            id="logout-button"
+            class="button small-button"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="explore.html" class="nav-item active">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="collections.html" class="nav-item">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Discover Collections and Objects</p>
+            <p class="section-description">
+              Explore amazing collections and objects from the community
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="explore-controls">
+              <button id="open-filter-popup" class="button filter-button">
+                🔍 Filtrează
+              </button>
+
+              <div class="search-bar">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search by name..."
+                />
+                <button type="button" class="search-btn">🔍</button>
+              </div>
+            </div>
+
+            <div
+              class="active-filters"
+              id="active-filters"
+              style="display: none"
+            >
+              <h4>Filtre active:</h4>
+              <div class="filter-tags" id="filter-tags"></div>
+            </div>
+
+            <div class="posts-container"></div>
+
+            <div class="pagination">
+              <button class="pagination-btn" id="prev-page" disabled>
+                &laquo; Prev
+              </button>
+              <span class="pagination-info"
+                >Page <span id="current-page">1</span></span
+              >
+              <button class="pagination-btn" id="next-page">
+                Next &raquo;
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="filter-popup" class="filter-popup-overlay">
+      <div class="filter-popup-content">
+        <div class="filter-popup-header">
+          <h3>Filtrează rezultatele</h3>
+          <button id="close-filter-popup" class="close-popup-btn">
+            &times;
+          </button>
+        </div>
+
+        <div class="filter-popup-body">
+          <div class="filter-section">
+            <h4 class="filter-section-title">Tip conținut</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input
+                  type="radio"
+                  name="content-type"
+                  value="collections"
+                  checked
+                />
+                <span class="filter-option-text">📦 Collections</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="content-type" value="objects" />
+                <span class="filter-option-text">🎯 Objects</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Section -->
+          <div class="filter-section">
+            <h4 class="filter-section-title">Categorie</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="radio" name="category" value="" />
+                <span class="filter-option-text">Toate categoriile</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="monede" />
+                <span class="filter-option-text">🪙 Monede</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="viniluri" />
+                <span class="filter-option-text">🎵 Viniluri</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="timbre" />
+                <span class="filter-option-text">📮 Timbre</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="tablouri" />
+                <span class="filter-option-text">🖼️ Tablouri</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="others" />
+                <span class="filter-option-text">📦 Custom</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-section-title">Sortare</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="radio" name="sort" value="" />
+                <span class="filter-option-text">Fără sortare</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="popular" />
+                <span class="filter-option-text">⭐ Populare</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="trending" />
+                <span class="filter-option-text">🔥 În trend</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="valuable" />
+                <span class="filter-option-text">💎 Valoroase</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="new" />
+                <span class="filter-option-text">🆕 Noi</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-section-title">Created after</h4>
+            <div class="filter-options">
+              <label class="filter-option date-option">
+                <input
+                  type="date"
+                  id="created-after"
+                  name="created-after"
+                  class="date-input"
+                />
+                <span class="filter-option-text">Selectează data</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-popup-footer">
+          <button type="button" class="button" id="reset-filters">Reset</button>
+          <button type="button" class="button submit_button" id="apply-filters">
+            Filtrează
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        updateActiveFilters();
+        applyFiltersToResults();
+      });
+
+      // search button click
+      document
+        .querySelector(".search-btn")
+        .addEventListener("click", function () {
+          applyFiltersToResults();
+          showNotification("Căutarea a fost aplicată!", "success");
+        });
+
+      // enter in search field
+      document
+        .querySelector(".search-field")
+        .addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            applyFiltersToResults();
+            showNotification("Căutarea a fost aplicată!", "success");
+          }
+        });
+
+      // filter state
+      let currentFilters = {
+        contentType: "collections",
+        category: "",
+        sort: "",
+        createdAfter: "",
+      };
+
+      // filter popup functionality
+      document
+        .getElementById("open-filter-popup")
+        .addEventListener("click", () => {
+          document.getElementById("filter-popup").classList.add("active");
+        });
+
+      document
+        .getElementById("close-filter-popup")
+        .addEventListener("click", () => {
+          document.getElementById("filter-popup").classList.remove("active");
+        });
+
+      document.getElementById("filter-popup").addEventListener("click", (e) => {
+        if (e.target.id === "filter-popup") {
+          document.getElementById("filter-popup").classList.remove("active");
+        }
+      });
+
+      // apply filters
+      document.getElementById("apply-filters").addEventListener("click", () => {
+        // get form data
+        const contentType = document.querySelector(
+          'input[name="content-type"]:checked'
+        ).value;
+        const category =
+          document.querySelector('input[name="category"]:checked')?.value || "";
+        const sort =
+          document.querySelector('input[name="sort"]:checked')?.value || "";
+        const createdAfter = document.getElementById("created-after").value;
+
+        // update current filters
+        currentFilters = {
+          contentType,
+          category,
+          sort,
+          createdAfter,
+        };
+
+        // update ui
+        updateActiveFilters();
+        applyFiltersToResults();
+
+        // close popup
+        document.getElementById("filter-popup").classList.remove("active");
+
+        // show success message
+        showNotification("Filtrele au fost aplicate cu succes!", "success");
+      });
+
+      // reset filters
+      document.getElementById("reset-filters").addEventListener("click", () => {
+        // reset form
+        document.querySelector(
+          'input[name="content-type"][value="collections"]'
+        ).checked = true;
+        document
+          .querySelectorAll('input[name="category"]')
+          .forEach((input) => (input.checked = false));
+        document.querySelector(
+          'input[name="category"][value=""]'
+        ).checked = true;
+        document
+          .querySelectorAll('input[name="sort"]')
+          .forEach((input) => (input.checked = false));
+        document.querySelector('input[name="sort"][value=""]').checked = true;
+        document.getElementById("created-after").value = "";
+
+        // Reset current filters
+        currentFilters = {
+          contentType: "collections",
+          category: "",
+          sort: "",
+          createdAfter: "",
+        };
+
+        updateActiveFilters();
+      });
+
+      // ppdate active filters display
+      function updateActiveFilters() {
+        const activeFiltersContainer =
+          document.getElementById("active-filters");
+        const filterTagsContainer = document.getElementById("filter-tags");
+
+        // clear existing tags
+        filterTagsContainer.innerHTML = "";
+
+        let hasActiveFilters = false;
+
+        // add content type tag, always show if not default
+        if (currentFilters.contentType !== "collections") {
+          addFilterTag(
+            "Tip",
+            currentFilters.contentType === "objects" ? "Obiecte" : "Colecții"
+          );
+          hasActiveFilters = true;
+        }
+
+        // add category tag
+        if (currentFilters.category) {
+          const categoryNames = {
+            monede: "Monede",
+            viniluri: "Viniluri",
+            timbre: "Timbre",
+            tablouri: "Tablouri",
+            others: "Altele",
+          };
+          addFilterTag("Categorie", categoryNames[currentFilters.category]);
+          hasActiveFilters = true;
+        }
+
+        // add sort tag
+        if (currentFilters.sort) {
+          const sortNames = {
+            popular: "Populare",
+            trending: "În trend",
+            valuable: "Valoroase",
+            new: "Noi",
+          };
+          addFilterTag("Sortare", sortNames[currentFilters.sort]);
+          hasActiveFilters = true;
+        }
+
+        // add date tag
+        if (currentFilters.createdAfter) {
+          addFilterTag("Created after", currentFilters.createdAfter);
+          hasActiveFilters = true;
+        }
+
+        // show/hide active filters section
+        activeFiltersContainer.style.display = hasActiveFilters
+          ? "block"
+          : "none";
+      }
+
+      function addFilterTag(label, value) {
+        const filterTagsContainer = document.getElementById("filter-tags");
+        const tag = document.createElement("span");
+        tag.className = "filter-tag";
+        tag.innerHTML = `${label}: ${value} <button onclick="removeFilterTag('${label}')">&times;</button>`;
+        filterTagsContainer.appendChild(tag);
+      }
+
+      function removeFilterTag(label) {
+        // remove specific filter based on label
+        switch (label) {
+          case "Tip":
+            currentFilters.contentType = "collections";
+            break;
+          case "Categorie":
+            currentFilters.category = "";
+            break;
+          case "Sortare":
+            currentFilters.sort = "";
+            break;
+          case "Created after":
+            currentFilters.createdAfter = "";
+            break;
+        }
+        updateActiveFilters();
+        applyFiltersToResults();
+      }
+
+      function applyFiltersToResults() {
+        const token = localStorage.getItem("token");
+        let params = [];
+        if (currentFilters.category)
+          params.push(
+            `colectie=${encodeURIComponent(
+              currentFilters.category.toUpperCase()
+            )}`
+          );
+        if (currentFilters.createdAfter)
+          params.push(
+            `data=${currentFilters.createdAfter.split("-").reverse().join("-")}`
+          );
+        // sortare corectă pentru backend
+        const sortMap = {
+          popular: "populare",
+          trending: "trend",
+          valuable: "value",
+          new: "date",
+        };
+        if (currentFilters.sort) {
+          const backendSort =
+            sortMap[currentFilters.sort] || currentFilters.sort;
+          params.push(`sort=${encodeURIComponent(backendSort)}`);
+        }
+        // search bar
+        const searchValue = document
+          .querySelector(".search-field")
+          .value.trim();
+        if (searchValue) params.push(`name=${encodeURIComponent(searchValue)}`);
+
+        const query = params.length ? `?${params.join("&")}` : "";
+
+        // slege endpoint ul in functie de tipul de continut
+        const endpoint =
+          currentFilters.contentType === "objects"
+            ? "objects"
+            : "all-collection";
+
+        fetch(`http://localhost:1111/${endpoint}${query}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((items) => {
+            if (endpoint === "objects") {
+              renderObjects(items);
+            } else {
+              renderCollections(items);
+            }
+            // notificare
+            let filterCount = 0;
+            if (currentFilters.contentType !== "collections") filterCount++;
+            if (currentFilters.category) filterCount++;
+            if (currentFilters.sort) filterCount++;
+            if (currentFilters.createdAfter) filterCount++;
+            if (searchValue) filterCount++;
+            if (filterCount > 0) {
+              showNotification(
+                `${filterCount} filtre aplicate. Rezultatele au fost actualizate.`,
+                "success"
+              );
+            }
+          })
+          .catch(() => {
+            document.querySelector(".posts-container").innerHTML =
+              "<p>Eroare la încărcarea rezultatelor.</p>";
+          });
+      }
+
+      function renderCollections(collections) {
+        if (collections && collections.publicCollections) {
+          collections = collections.publicCollections;
+        }
+        const container = document.querySelector(".posts-container");
+        console.log("renderCollections called, collections:", collections);
+
+        if (!collections || !collections.length) {
+          container.innerHTML =
+            "<p style='padding:2rem;'>Nicio colecție găsită.</p>";
+          console.log("No collections to display.");
+          return;
+        }
+
+        const emoticons = {
+          MONEDE: "🪙",
+          VINILURI: "🎵",
+          TIMBRE: "📮",
+          TABLOURI: "🖼️",
+          OTHERS: "📦",
+        };
+
+        // log fiecare colectie individual
+        collections.forEach((col, idx) => {
+          console.log(`Colecție [${idx}]:`, col);
+        });
+
+        container.innerHTML = collections
+          .map((col, idx) => {
+            const html = `
+  <div class="post-container">
+    <div class="post-header">
+      <div class="user-info">
+        <span class="post-owner">@${col.username || "anonim"}</span>
+      </div>
+      <span class="post-tag moneda-tag">
+        ${emoticons[col.tipColectie] || "📦"} ${(
+              col.tipColectie || ""
+            ).toLowerCase()}
+      </span>
+    </div>
+    <hr class="post-delimiter" />
+    <div class="post-body" style="display:flex;flex-direction:column;align-items:center;">
+      <div style="font-size:4rem;line-height:1">${
+        emoticons[col.tipColectie] || "📦"
+      }</div>
+      <p class="post-title">${col.name || "Fără titlu"}</p>
+      <p class="post-description italic">${col.description || ""}</p>
+      <div class="post-footer">
+        <span class="post-likes post-statistic">❤️ ${col.likes ?? 0}</span>
+        <span class="post-views post-statistic">👀 ${
+          col.views ?? col.view ?? 0
+        }</span>
+        <span class="post-shares post-statistic">💰 ${col.value}$</span>
+      </div>
+    </div>
+    <hr class="post-delimiter" />
+    <div class="post-actions">
+      <a href="view-collection-explore.html?id=${
+        col.id
+      }" class="view-button post-button">View</a>
+    </div>
+  </div>
+  `;
+            console.log(`Colecție [${idx}] HTML:`, html);
+            return html;
+          })
+          .join("");
+
+        console.log("container.innerHTML set:", container.innerHTML);
+      }
+
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // show notification
+        setTimeout(() => {
+          notification.classList.add("show");
+        }, 100);
+
+        // hide and remove notification
+        setTimeout(() => {
+          notification.classList.remove("show");
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 300);
+        }, 3000);
+      }
+
+      // existing filter tabs functionality
+      document
+        .querySelectorAll(".filter-tabs .filter-tab")
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            document
+              .querySelectorAll(".filter-tabs .filter-tab")
+              .forEach(function (b) {
+                b.classList.remove("active");
+              });
+            this.classList.add("active");
+          });
+        });
+
+      document
+        .querySelectorAll(".filter-tabs-type .filter-tab")
+        .forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            document
+              .querySelectorAll(".filter-tabs-type .filter-tab")
+              .forEach(function (b) {
+                b.classList.remove("active");
+              });
+            this.classList.add("active");
+          });
+        });
+
+      // top popup functionality
+      const openTopBtn = document.getElementById("open-top-popup");
+      const closeTopBtn = document.getElementById("close-top-popup");
+      const topPopup = document.getElementById("top-popup");
+
+      openTopBtn.addEventListener("click", () => {
+        topPopup.classList.add("active");
+      });
+
+      closeTopBtn.addEventListener("click", () => {
+        topPopup.classList.remove("active");
+      });
+
+      topPopup.addEventListener("click", (e) => {
+        if (e.target === topPopup) {
+          topPopup.classList.remove("active");
+        }
+      });
+
+      function renderObjects(objects) {
+        console.log("[renderObjects] Called with:", objects);
+        
+        if (objects && Array.isArray(objects.objects)) {
+          console.log(
+            "[renderObjects] Detected objects key, extracting array."
+          );
+          objects = objects.objects;
+        } else if (objects && Array.isArray(objects.publicObjects)) {
+          console.log(
+            "[renderObjects] Detected publicObjects key, extracting array."
+          );
+          objects = objects.publicObjects;
+        }
+        const container = document.querySelector(".posts-container");
+        if (!objects || !objects.length) {
+          container.innerHTML =
+            "<p style='padding:2rem;'>Niciun obiect găsit.</p>";
+          console.log("[renderObjects] No objects to display.");
+          return;
+        }
+        const emoticons = {
+          MONEDE: "🪙",
+          VINILURI: "🎵",
+          TIMBRE: "📮",
+          TABLOURI: "🖼️",
+          OTHERS: "📦",
+        };
+        container.innerHTML = objects
+          .map(
+            (obj) => `
+    <div class="post-container">
+      <div class="post-header">
+        <div class="user-info">
+          <span class="post-owner">@${obj.username}</span>
+        </div>
+        <span class="post-tag moneda-tag">
+          ${emoticons[obj.tipColectie] || "📦"} ${
+              obj.tipColectie?.toLowerCase() || ""
+            }
+        </span>
+      </div>
+      <hr class="post-delimiter" />
+      <div class="post-body" style="display:flex;flex-direction:column;align-items:center;">
+        ${
+          obj.image
+            ? `<img src="data:image/png;base64,${obj.image}" alt="${obj.name}" class="post-image" />`
+            : `<div style="font-size:4rem;line-height:1">${
+                emoticons[obj.tipColectie] || "📦"
+              }</div>`
+        }
+        <p class="post-title">${obj.name}</p>
+        <p class="post-description italic">${obj.description || ""}</p>
+        <div class="post-footer">
+          <span class="post-likes post-statistic">❤️ ${obj.likes ?? 0}</span>
+          <span class="post-views post-statistic">👀 ${
+            obj.views ?? obj.view ?? 0
+          }</span>
+          <span class="post-shares post-statistic">💰 ${obj.value}$</span>
+        </div>
+      </div>
+      <hr class="post-delimiter" />
+      <div class="post-actions">
+        <button class="like-button post-button" data-id="${
+          obj.id
+        }">Like</button>
+        <a href="view-object-explore.html?id=${
+          obj.id
+        }" class="view-button post-button">View</a>
+      </div>
+    </div>
+  `
+          )
+          .join("");
+
+        // adauga handler pentru butoanele de like
+        container.querySelectorAll(".like-button").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            const objectId = this.getAttribute("data-id");
+            
+            showNotification("Ai apreciat obiectul!", "success");
+            
+          });
+        });
+      }
+
+      // initialize filters display
+
+      function updateFiltersFromForm() {
+        const contentType = document.querySelector(
+          'input[name="content-type"]:checked'
+        ).value;
+        const category =
+          document.querySelector('input[name="category"]:checked')?.value || "";
+        const sort =
+          document.querySelector('input[name="sort"]:checked')?.value || "";
+        const createdAfter = document.getElementById("created-after").value;
+
+        currentFilters = {
+          contentType,
+          category,
+          sort,
+          createdAfter,
+        };
+        updateActiveFilters();
+      }
+
+      document
+        .querySelectorAll(
+          'input[name="content-type"], input[name="category"], input[name="sort"], #created-after'
+        )
+        .forEach((input) => {
+          input.addEventListener("change", updateFiltersFromForm);
+        });
+    </script>
+  </body>
+</html>

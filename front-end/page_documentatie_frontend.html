@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentație Front-End - Collect.me</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #faf8fc;
+            color: #2d2346;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(80, 60, 120, 0.08);
+            padding: 40px 32px;
+        }
+        h1, h2, h3 {
+            color: #6c3eb6;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+        nav.toc {
+            background: #f3eafd;
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin-bottom: 32px;
+        }
+        nav.toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        nav.toc li {
+            margin-bottom: 6px;
+        }
+        nav.toc a {
+            color: #6c3eb6;
+            text-decoration: none;
+        }
+        nav.toc a:hover {
+            text-decoration: underline;
+        }
+        code, pre {
+            background: #f6f3fa;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.98em;
+        }
+        section {
+            margin-bottom: 36px;
+        }
+        ul {
+            margin-top: 0.5em;
+        }
+        .subsection {
+            margin-left: 1.5em;
+        }
+        .footer {
+            text-align: center;
+            color: #a89cc8;
+            font-size: 0.95em;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Documentație Front-End<br><span style="font-size:0.7em;color:#a89cc8;">Collect.me</span></h1>
+        <nav class="toc">
+            <strong>Cuprins</strong>
+            <ul>
+                <li><a href="#introducere">1. Introducere</a></li>
+                <li><a href="#prezentare-generala">2. Prezentare generală a aplicației</a></li>
+                <li><a href="#arhitectura-tehnica">3. Arhitectură tehnică</a></li>
+                <li><a href="#componente-frontend">4. Componente Front-End</a></li>
+                <li><a href="#design-ui">5. Design-ul interfeței cu utilizatorul</a></li>
+                <li><a href="#autentificare">6. Sistem de autentificare</a></li>
+                <li><a href="#cazuri-utilizare">7. Analiza cazurilor de utilizare</a></li>
+                <li><a href="#integrare-backend">8. Integrarea cu Back-End</a></li>
+                <li><a href="#gestionare-erori">9. Gestionarea erorilor</a></li>
+                <li><a href="#responsive">10. Design Responsive</a></li>
+                <li><a href="#accesibilitate">11. Caracteristici de accesibilitate</a></li>
+                <li><a href="#securitate">12. Considerații de securitate</a></li>
+                <li><a href="#concluzie">13. Concluzie</a></li>
+            </ul>
+        </nav>
+
+        <section id="introducere">
+            <h2>1. Introducere</h2>
+            <p>
+                Această documentație oferă o prezentare completă a implementării front-end a aplicației <strong>Collect.me</strong>. Aplicația este un sistem de gestionare a colecțiilor care permite utilizatorilor să creeze, să administreze și să partajeze colecțiile lor compuse din diverse tipologii de obiecte. Documentul detaliază structura, modelele de design, tehnologiile utilizate și funcționalitățile componentelor front-end.
+            </p>
+        </section>
+
+        <section id="prezentare-generala">
+            <h2>2. Prezentare generală a aplicației</h2>
+            <p>
+                <strong>Collect.me</strong> este o aplicație web concepută pentru a ajuta colecționarii să organizeze și să-și prezinte colecțiile. Funcționalitățile principale includ:
+            </p>
+            <ul>
+                <li>Autentificarea utilizatorilor (login/înregistrare cu nume de utilizator sau email)</li>
+                <li>Gestionarea colecțiilor (creare, vizualizare, editare, ștergere)</li>
+                <li>Gestionarea obiectelor (adăugare, vizualizare, editare, ștergere în cadrul colecțiilor)</li>
+                <li>Explorare (vizualizare și căutare în colecții și obiecte publice)</li>
+                <li>Statistici (generare și vizualizare statistici despre colecții și obiecte)</li>
+                <li>Gestionarea profilului utilizatorului</li>
+                <li>Funcționalitate de export (export date colecții în PDF, CSV)</li>
+            </ul>
+            <p>
+                Aplicația este proiectată cu o interfață curată, prietenoasă pentru utilizator, care face gestionarea colecțiilor intuitivă și plăcută.
+            </p>
+        </section>
+
+        <section id="arhitectura-tehnica">
+            <h2>3. Arhitectură tehnică</h2>
+            <p>
+                <strong>Tehnologii utilizate pentru Front-End:</strong>
+            </p>
+            <ul>
+                <li><strong>HTML5</strong>: Oferă fundația structurală pentru toate paginile</li>
+                <li><strong>CSS</strong>: Gestionează stilizarea și designul responsive</li>
+                <li><strong>JavaScript</strong>: Administrează interactivitatea, validarea formularelor și comunicarea API</li>
+                <li><strong>Fetch API</strong>: Utilizat pentru efectuarea cererilor HTTP către back-end</li>
+            </ul>
+            <p>
+                <strong>Organizarea fișierelor:</strong>
+            </p>
+            <pre>
+front-end/
+├── images/             # Resurse de imagine
+├── scripts/            # Fișiere JavaScript
+│   ├── auth-middleware.js
+│   ├── global.js
+│   └── index.js
+├── styles/             # Foi de stil CSS
+│   ├── global1.css
+│   ├── auth1.css
+│   ├── collections.css
+│   └── ...
+└── [Fișiere HTML]      # Șabloane de pagină
+            </pre>
+        </section>
+
+        <section id="componente-frontend">
+            <h2>4. Componente Front-End</h2>
+            <h3>Structura HTML</h3>
+            <p>
+                Aplicația urmează o structură HTML consecventă pentru toate paginile:
+            </p>
+            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;!-- Importuri CSS --&gt;
+    &lt;title&gt;[Titlu Pagina] - Collect.me&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="content"&gt;
+        &lt;header class="header"&gt;...&lt;/header&gt;
+        &lt;div class="main-container"&gt;
+            &lt;nav class="sidebar-nav"&gt;...&lt;/nav&gt;
+            &lt;div class="main-page"&gt;...&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Importuri JavaScript --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+            <h3>Pagini HTML principale</h3>
+            <ul>
+                <li>Pagini de autentificare: <code>login.html</code>, <code>login2.html</code>, <code>register.html</code>, <code>reset-password1.html</code>, <code>reset-password2.html</code></li>
+                <li>Pagini principale: <code>collections.html</code>, <code>view-collection.html</code>, <code>view-object.html</code>, <code>add-object.html</code>, <code>edit-object.html</code>, <code>explore.html</code>, <code>statistics.html</code>, <code>profile.html</code></li>
+            </ul>
+            <h3>Stilizare CSS</h3>
+            <ul>
+                <li><strong>global1.css</strong>: Stiluri de bază, layout, culori, tipografie</li>
+                <li>Fișiere CSS specifice paginilor: <code>collections.css</code>, <code>view-object.css</code> etc.</li>
+                <li>Stiluri pentru componente reutilizabile: dialoguri, formulare, carduri</li>
+            </ul>
+            <h3>Sistemul de design</h3>
+            <ul>
+                <li>Paletă de culori bazată pe nuanțe de mov și culori neutre</li>
+                <li>Tipografie web-safe</li>
+                <li>Reguli constante pentru spațiere și layout</li>
+                <li>Componente UI reutilizabile</li>
+            </ul>
+            <h3>Funcționalitate JavaScript</h3>
+            <ul>
+                <li><strong>auth-middleware.js</strong>: Gestionează autentificarea și protecția rutelor</li>
+                <li><strong>global.js</strong>: Funcții utilitare globale</li>
+                <li><strong>fetch.js</strong>: Modul de comunicare API</li>
+            </ul>
+        </section>
+
+        <section id="design-ui">
+            <h2>5. Design-ul interfeței cu utilizatorul</h2>
+            <ul>
+                <li><strong>Header</strong>: Logo și butoane de navigare</li>
+                <li><strong>Sidebar</strong>: Navigare între secțiuni (Explore, Collections, Statistics, Profile)</li>
+                <li><strong>Zona principală</strong>: Conținutul specific fiecărei pagini</li>
+                <li><strong>Dialoguri modale</strong>: Confirmări, alerte, formulare</li>
+                <li><strong>Carduri</strong>: Afișarea colecțiilor și obiectelor în grid</li>
+                <li><strong>Formulare</strong>: Introducere date cu validare</li>
+            </ul>
+            <h3>Elemente interactive</h3>
+            <ul>
+                <li>Butoane pentru acțiuni primare și secundare</li>
+                <li>Inputuri text, dropdown-uri, checkbox-uri, încărcări de fișiere</li>
+                <li>Dialoguri de confirmare, notificări de succes, mesaje de eroare</li>
+            </ul>
+        </section>
+
+        <section id="autentificare">
+            <h2>6. Sistem de autentificare</h2>
+            <p>
+                Front-end-ul implementează un sistem de autentificare care interacționează cu endpoint-urile <code>/auth</code> ale back-end-ului.
+            </p>
+            <ul>
+                <li>Login: trimite credentiale la <code>/auth/login</code>, primește token JWT, stocat în <code>localStorage</code></li>
+                <li>Înregistrare: validare client-side, trimitere date la <code>/auth/register</code></li>
+                <li>Middleware: <code>auth-middleware.js</code> verifică token-ul și redirecționează dacă lipsește</li>
+                <li>Resetare parolă: flux cu email și cod de resetare</li>
+                <li>Logout: eliminare token, notificare backend</li>
+            </ul>
+        </section>
+
+        <section id="cazuri-utilizare">
+            <h2>7. Analiza cazurilor de utilizare</h2>
+            <h3>Cazuri pentru autentificare</h3>
+            <ul>
+                <li><strong>UC1:</strong> Înregistrare utilizator</li>
+                <li><strong>UC2:</strong> Login utilizator</li>
+                <li><strong>UC3:</strong> Resetare parolă</li>
+            </ul>
+            <h3>Cazuri pentru gestionarea colecțiilor</h3>
+            <ul>
+                <li><strong>UC4:</strong> Creare colecție</li>
+                <li><strong>UC5:</strong> Vizualizare colecții</li>
+                <li><strong>UC6:</strong> Editare colecție</li>
+                <li><strong>UC7:</strong> Ștergere colecție</li>
+            </ul>
+            <h3>Cazuri pentru gestionarea obiectelor</h3>
+            <ul>
+                <li><strong>UC8:</strong> Adăugare obiect</li>
+                <li><strong>UC9:</strong> Vizualizare detalii obiect</li>
+                <li><strong>UC10:</strong> Editare obiect</li>
+                <li><strong>UC11:</strong> Ștergere obiect</li>
+            </ul>
+            <h3>Cazuri pentru explorare și statistici</h3>
+            <ul>
+                <li><strong>UC12:</strong> Explorare colecții publice</li>
+                <li><strong>UC13:</strong> Vizualizare obiect public</li>
+                <li><strong>UC14:</strong> Vizualizare statistici personale</li>
+                <li><strong>UC15:</strong> Export statistici</li>
+            </ul>
+        </section>
+
+        <section id="integrare-backend">
+            <h2>8. Integrarea cu Back-End</h2>
+            <p>
+                Front-end-ul comunică cu back-end-ul prin endpoint-uri API RESTful.
+            </p>
+            <h3>Endpoint-uri pentru autentificare</h3>
+            <ul>
+                <li><code>POST /auth/login</code>, <code>POST /auth/register</code>, <code>POST /auth/reset-password</code>, <code>POST /auth/logout</code> etc.</li>
+            </ul>
+            <h3>Endpoint-uri pentru colecții și obiecte</h3>
+            <ul>
+                <li><code>GET /user-collection</code>, <code>POST /user-collection</code>, <code>PUT /user-collection/{id}</code>, <code>DELETE /user-collection/{id}</code></li>
+                <li><code>GET /objects</code>, <code>POST /my-collection/{id}</code>, <code>PUT /my-objects/{id}</code>, <code>DELETE /my-objects/{id}</code></li>
+            </ul>
+            <h3>Endpoint-uri pentru statistici</h3>
+            <ul>
+                <li><code>GET /statistics/personal/pdf</code>, <code>GET /statistics/public/csv</code>, <code>GET /statistics/public/rss</code></li>
+            </ul>
+            <h3>Fluxul cererilor API</h3>
+            <ol>
+                <li>Pregătirea cererii: adăugare header Authorization cu token JWT</li>
+                <li>Executarea cererii: trimitere către server</li>
+                <li>Procesarea răspunsului: parsare JSON, verificare coduri de eroare</li>
+                <li>Gestionarea erorilor: afișare mesaje prietenoase, logica de reîncercare</li>
+            </ol>
+        </section>
+
+        <section id="gestionare-erori">
+            <h2>9. Gestionarea erorilor</h2>
+            <h3>Validare client-side</h3>
+            <ul>
+                <li>Validare câmpuri obligatorii, format email, complexitate parolă</li>
+                <li>Sanitizarea input-ului pentru prevenirea XSS</li>
+            </ul>
+            <h3>Gestionarea erorilor API</h3>
+            <ul>
+                <li>Tratare status HTTP: 400, 401, 403, 404, 500</li>
+                <li>Detectarea problemelor de conectivitate</li>
+                <li>Feedback pentru utilizator: mesaje de eroare și succes clare</li>
+            </ul>
+        </section>
+
+        <section id="responsive">
+            <h2>10. Design Responsive</h2>
+            <ul>
+                <li>Breakpoint-uri: Mobile (&lt;767px), Tabletă (768-999px), Desktop (&gt;1000px), Desktop mare (&gt;1200px)</li>
+                <li>Grile fluide, imagini flexibile, media queries pentru layout adaptiv</li>
+                <li>Ascunderea/afișarea elementelor după necesități</li>
+            </ul>
+        </section>
+
+        <section id="accesibilitate">
+            <h2>11. Caracteristici de accesibilitate</h2>
+            <ul>
+                <li>Etichetare corectă a formularelor</li>
+                <li>Contrast ridicat pentru text și elemente UI</li>
+                <li>Suport pentru navigare cu tastatura</li>
+            </ul>
+        </section>
+
+        <section id="securitate">
+            <h2>12. Considerații de securitate</h2>
+            <h3>Securitate client-side</h3>
+            <ul>
+                <li>Prevenirea XSS: sanitizare input, codificare output</li>
+                <li>Protecție CSRF: token-uri anti-CSRF, atribute SameSite</li>
+                <li>Gestionarea JWT: stocare securizată, gestionarea expirării</li>
+            </ul>
+            <h3>Securitatea rețelei</h3>
+            <ul>
+                <li>Toate comunicațiile API peste HTTPS</li>
+                <li>Autentificare și autorizare pentru endpoint-uri protejate</li>
+                <li>Limitarea ratei pentru cererile API</li>
+            </ul>
+            <h3>Protecția datelor</h3>
+            <ul>
+                <li>Stocarea minimă a datelor sensibile pe client</li>
+                <li>Ștergerea datelor sensibile după utilizare</li>
+                <li>Fără stocarea parolelor în text clar</li>
+            </ul>
+        </section>
+
+        <section id="concluzie">
+            <h2>13. Concluzie</h2>
+            <p>
+                Implementarea front-end a aplicației <strong>Collect.me</strong> oferă o interfață robustă și prietenoasă pentru gestionarea colecțiilor. Aplicația urmează practici moderne de dezvoltare web, cu accent pe design responsive, accesibilitate și securitate. Arhitectura modulară permite întreținere ușoară și extindere viitoare, iar integrarea cu serviciile backend este gestionată printr-un strat API curat, cu gestionare comprehensivă a erorilor și feedback pentru utilizator.
+            </p>
+            <p>
+                <strong>Îmbunătățiri viitoare:</strong>
+            </p>
+            <ul>
+                <li>Caracteristici de accesibilitate avansate</li>
+                <li>Suport multi-limbă</li>
+                <li>Capacități avansate de căutare și filtrare</li>
+                <li>Caracteristici sociale pentru partajarea colecțiilor</li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

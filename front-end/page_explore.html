@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <meta
+      name="description"
+      content="Discover amazing collections from the Collect.me community. Explore trending collectibles, popular items, and find inspiration for your own collecting journey."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles/auth1.css" >
+    <link rel="stylesheet" href="styles/global1.css" >
+    <link rel="stylesheet" href="styles/explore.css" >
+
+    <title>Collections</title>
+  </head>
+
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+
+        <div class="header_nav">
+          <a href="/page_documentatie_backend.html" class="button small-button">Landing</a>
+          <button
+            
+            id="logout-button"
+            class="button small-button"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item active">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Discover Collections and Objects</p>
+            <p class="section-description">
+              Explore amazing collections and objects from the community
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="explore-controls">
+              <button id="open-filter-popup" class="button filter-button">
+                🔍 Filtrează
+              </button>
+
+              <div class="search-bar">
+                <input
+                  type="text"
+                  class="search-field"
+                  placeholder="Search by name..."
+                >
+                <button type="button" class="search-btn">🔍</button>
+              </div>
+            </div>
+
+            <div
+              class="active-filters"
+              id="active-filters"
+              style="display: none"
+            >
+              <h4>Filtre active:</h4>
+              <div class="filter-tags" id="filter-tags"></div>
+            </div>
+
+            <div class="posts-container"></div>
+
+            <!-- <div class="pagination">
+              <button class="pagination-btn" id="prev-page" disabled>
+                &laquo; Prev
+              </button>
+              <span class="pagination-info"
+                >Page <span id="current-page">1</span></span
+              >
+              <button class="pagination-btn" id="next-page">
+                Next &raquo;
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="filter-popup" class="filter-popup-overlay">
+      <div class="filter-popup-content">
+        <div class="filter-popup-header">
+          <h3>Filtrează rezultatele</h3>
+          <button id="close-filter-popup" class="close-popup-btn">
+            &times;
+          </button>
+        </div>
+
+        <div class="filter-popup-body">
+          <div class="filter-section">
+            <h4 class="filter-section-title">Tip conținut</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input
+                  type="radio"
+                  name="content-type"
+                  value="collections"
+                  checked
+                >
+                <span class="filter-option-text">📦 Collections</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="content-type" value="objects" >
+                <span class="filter-option-text">🎯 Objects</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Section -->
+          <div class="filter-section">
+            <h4 class="filter-section-title">Categorie</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="radio" name="category" value="" >
+                <span class="filter-option-text">Toate categoriile</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="monede" >
+                <span class="filter-option-text">🪙 Monede</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="viniluri" >
+                <span class="filter-option-text">🎵 Viniluri</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="timbre" >
+                <span class="filter-option-text">📮 Timbre</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="tablouri" >
+                <span class="filter-option-text">🖼️ Tablouri</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="category" value="others">
+                <span class="filter-option-text">📦 Custom</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-section-title">Sortare</h4>
+            <div class="filter-options">
+              <label class="filter-option">
+                <input type="radio" name="sort" value="" >
+                <span class="filter-option-text">Fără sortare</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="popular" >
+                <span class="filter-option-text">⭐ Populare</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="trending" >
+                <span class="filter-option-text">🔥 În trend</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="valuable" >
+                <span class="filter-option-text">💎 Valoroase</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="sort" value="new" >
+                <span class="filter-option-text">🆕 Noi</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-section-title">Created after</h4>
+            <div class="filter-options">
+              <label class="filter-option date-option">
+                <input
+                  type="date"
+                  id="created-after"
+                  name="created-after"
+                  class="date-input"
+                >
+                <span class="filter-option-text">Selectează data</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-popup-footer">
+          <button type="button" class="button" id="reset-filters">Reset</button>
+          <button type="button" class="button submit_button" id="apply-filters">
+            Filtrează
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script src="./scripts/explore.js"></script>
+      
+  </body>
+</html>

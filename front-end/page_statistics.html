@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="View comprehensive statistics for your Collect.me collections. Track growth, values, popular items, and analyze your collecting patterns with detailed insights.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/auth1.css">
+    <link rel="stylesheet" href="styles/global1.css">
+    <link rel="stylesheet" href="styles/statistics.css">
+    <link rel="stylesheet" href="styles/profile.css">
+
+    <title>Statistics - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a href="/page_documentatie_backend.html class="button small-button">Landing</a>
+          <button
+            id="logout-button"
+            class="button small-button">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item active">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Total Public Collections Statistics</p>
+            <p class="section-description">
+              Overview of your collecting journey
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="general-statistics">
+              <div class="card general-statistics-card">
+                <p class="general-statistics-icon">📁</p>
+                <div class="general-statistics-info">
+                  <p class="general-statistics-data">12</p>
+                  <p class="general-statistics-description">
+                    Total collections
+                  </p>
+                </div>
+              </div>
+
+              <div class="card general-statistics-card">
+                <p class="general-statistics-icon">🎯</p>
+                <div class="general-statistics-info">
+                  <p class="general-statistics-data">1.247</p>
+                  <p class="general-statistics-description">Total items</p>
+                </div>
+              </div>
+
+              <div class="card general-statistics-card">
+                <p class="general-statistics-icon">💰</p>
+                <div class="general-statistics-info">
+                  <p class="general-statistics-data">$2.000</p>
+                  <p class="general-statistics-description">Total value</p>
+                </div>
+              </div>
+
+              <div class="card general-statistics-card">
+                <p class="general-statistics-icon">📈</p>
+                <div class="general-statistics-info">
+                  <p class="general-statistics-data">+15%</p>
+                  <p class="general-statistics-description">This month</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="ranking-statistics">
+              <div class="clasament-statistics card">
+                <p class="card-statistics-title">Collection Types</p>
+                <div class="clasament-statistics-item">
+                  <p class="clasament-statistics-item-name">Stamps</p>
+                  <p class="clasament-statistics-item-procent">20</p>
+                  <p class="clasament-statistics-item-procent">%</p>
+                </div>
+                <div class="clasament-statistics-item">
+                  <p class="clasament-statistics-item-name">Vinil</p>
+                  <p class="clasament-statistics-item-procent">20</p>
+                  <p class="clasament-statistics-item-procent">%</p>
+                </div>
+                <div class="clasament-statistics-item">
+                  <p class="clasament-statistics-item-name">Coins</p>
+                  <p class="clasament-statistics-item-procent">20</p>
+                  <p class="clasament-statistics-item-procent">%</p>
+                </div>
+                <div class="clasament-statistics-item">
+                  <p class="clasament-statistics-item-name">Art</p>
+                  <p class="clasament-statistics-item-procent">20</p>
+                  <p class="clasament-statistics-item-procent">%</p>
+                </div>
+                <div class="clasament-statistics-item">
+                  <p class="clasament-statistics-item-name">Others</p>
+                  <p class="clasament-statistics-item-procent">20</p>
+                  <p class="clasament-statistics-item-procent">%</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="collection-stats">
+              <p class="collection-stats__title">Collections Statistics 📦</p>
+
+              <div class="collection-stats__sections">
+
+                <!-- Most Liked Section -->
+                <div class="stats-card stats-card--likes">
+                  <p class="stats-card__title">Most liked</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">2</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">3</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+
+                </div>
+
+                <div class="stats-card stats-card--views">
+                  <p class="stats-card__title">Most viewed</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a> <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a>
+
+                </div>
+
+                <!-- Most Expensive Section -->
+                <div class="stats-card stats-card--expensive">
+                  <p class="stats-card__title">Most expensive</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+
+                  <!-- Repeat for rank 2 and 3 -->
+                </div>
+
+              </div>
+            </div>
+            <div class="objects-stats">
+              <p class="objects-stats__title">Objects Statistics 📦</p>
+
+              <div class="objects-stats__sections">
+
+                <!-- Most Liked Section -->
+                <div class="stats-card stats-card--likes">
+                  <p class="stats-card__title">Most liked</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">2</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">3</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">likes</p>
+                      <p class="stats-item__icon">❤️</p>
+                    </div>
+                  </a>
+
+                </div>
+
+                <div class="stats-card stats-card--views">
+                  <p class="stats-card__title">Most viewed</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a> <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">views</p>
+                      <p class="stats-item__icon">👀</p>
+                    </div>
+                  </a>
+
+                </div>
+
+                <!-- Most Expensive Section -->
+                <div class="stats-card stats-card--expensive">
+                  <p class="stats-card__title">Most expensive</p>
+
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+                  <a href="#"
+                    class="stats-item">
+                    <div class="stats-item__info">
+                      <p class="stats-item__rank">1</p>
+                      <p class="stats-item__name">Coins</p>
+                    </div>
+                    <div class="stats-item__data">
+                      <p class="stats-item__value">20</p>
+                      <p class="stats-item__label">$</p>
+                      <p class="stats-item__icon">💰</p>
+                    </div>
+                  </a>
+
+                  <!-- Repeat for rank 2 and 3 -->
+                </div>
+
+              </div>
+            </div>
+
+            <!-- <div class="objects-statistics">
+              <p class="type-statistic-type">Objects Statistics 💎</p>
+
+              <div class="views-and-likes-statistics">
+                <div class="views-and-likes-statistics-collections card">
+                  <p class="card-statistics-title">Most liked</p>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">1</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">likes</p>
+                      <p class="views-and-likes-statistics-item-icon">❤️</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">2</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">likes</p>
+                      <p class="views-and-likes-statistics-item-icon">❤️</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">3</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">likes</p>
+                      <p class="views-and-likes-statistics-item-icon">❤️</p>
+                    </div>
+                  </a>
+                </div>
+
+                <div
+                  class="views-and-likes-statistics-objects views-and-likes-statistics-collections card">
+                  <p class="card-statistics-title">Most viewed</p>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">1</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">views</p>
+                      <p class="views-and-likes-statistics-item-icon">👀</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">2</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">views</p>
+                      <p class="views-and-likes-statistics-item-icon">👀</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">3</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">views</p>
+                      <p class="views-and-likes-statistics-item-icon">👀</p>
+                    </div>
+                  </a>
+                </div>
+
+                <div
+                  class="views-and-likes-statistics-objects views-and-likes-statistics-collections card">
+                  <p class="card-statistics-title">Most expensive</p>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">1</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">$</p>
+                      <p class="views-and-likes-statistics-item-icon">💰</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">2</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">$</p>
+                      <p class="views-and-likes-statistics-item-icon">💰</p>
+                    </div>
+                  </a>
+
+                  <a
+                    href="page_view-object-explore.html"
+                    class="views-and-likes-statistics-item">
+                    <div class="rank-and-name">
+                      <p class="views-and-likes-statistics-item-rank">3</p>
+                      <p class="views-and-likes-statistics-item-name">Coins</p>
+                    </div>
+                    <div class="data-and-icon">
+                      <p class="views-and-likes-statistics-item-number">20</p>
+                      <p class="views-and-likes-statistics-item-text">$</p>
+                      <p class="views-and-likes-statistics-item-icon">💰</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="profile-section danger-section green-section">
+              <h3 class="section-title">Export Info</h3>
+              <div class="danger-actions">
+                <div class="danger-item green-item">
+                  <div class="danger-info">
+                    <h4 class="danger-title green-title">Export Data</h4>
+                    <p class="danger-description">
+                      Download this statistics data as PDF
+                    </p>
+                  </div>
+                  <button class="button small-button green-button export-pdf">
+                    Export PDF
+                  </button>
+                </div>
+
+                <div class="danger-item green-item">
+                  <div class="danger-info">
+                    <h4 class="danger-title green-title">Export Data</h4>
+                    <p class="danger-description">
+                      Download this statistics data as CSV
+                    </p>
+                  </div>
+                  <button class="button small-button green-button export-csv">
+                    Export CSV
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+    <script src="./scripts/statistics.js"></script>
+  </body>
+</html>

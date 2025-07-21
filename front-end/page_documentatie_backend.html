@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="ro" prefix="schema: http://schema.org/">
+  <head>
+    <meta charset="UTF-8">
+    <title>Documentație Backend - Collect.me</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="schema:name" content="Sistem Backend - Aplicație Collect.me">
+    <meta property="schema:about" content="Documentație tehnică pentru backend-ul aplicației Collect.me">
+    <link rel="stylesheet" href="https://w3c.github.io/scholarly-html/css/scholarly.min.css">
+  </head>
+  <body typeof="schema:ScholarlyArticle">
+    <header>
+      <h1 property="schema:name">Sistem Backend - Aplicație "Collect.me"</h1>
+      <p property="schema:author" typeof="schema:Person">
+        <span property="schema:name">Echipa Collect.me</span>
+      </p>
+      <time property="schema:datePublished" datetime="2025-06-25">25 iunie 2025</time>
+    </header>
+
+    <nav id="toc" typeof="schema:TableOfContents">
+      <h2>Cuprins</h2>
+      <ol>
+        <li><a href="#prezentare-generala">1. Prezentare generală</a></li>
+        <li>
+          <a href="#arhitectura">2. Arhitectura sistemului</a>
+          <ol>
+            <li><a href="#prezentare-arhitecturala">2.1 Prezentare arhitecturală</a></li>
+            <li><a href="#diagrama-componente">2.2 Diagrama componentelor</a></li>
+            <li><a href="#flux-date">2.3 Fluxul de date</a></li>
+            <li><a href="#model-date">2.4 Modelul de date</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#functionalitati">3. Funcționalități principale</a>
+          <ol>
+            <li><a href="#gestiune-utilizatori">3.1 Gestiunea utilizatorilor</a></li>
+            <li><a href="#gestiune-colectii">3.2 Gestiunea colecțiilor</a></li>
+            <li><a href="#gestiune-obiecte">3.3 Gestiunea obiectelor</a></li>
+            <li><a href="#statistici-rapoarte">3.4 Statistici și rapoarte</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#securitate">4. Securitate</a>
+          <ol>
+            <li><a href="#jwt">4.1 Autentificare JWT</a></li>
+            <li><a href="#xss">4.2 Prevenirea atacurilor XSS</a></li>
+            <li><a href="#cors">4.3 Configurare CORS</a></li>
+            <li><a href="#validare-date">4.4 Validarea datelor</a></li>
+            <li><a href="#bd-securitate">4.5 Securitatea bazei de date</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#tehnologii">5. Tehnologii și librării</a>
+          <ol>
+            <li><a href="#tehnologii-baza">5.1 Tehnologii de bază</a></li>
+            <li><a href="#librarii-securitate">5.2 Librării pentru autentificare și securitate</a></li>
+            <li><a href="#serializare-date">5.3 Procesare și serializare date</a></li>
+            <li><a href="#rapoarte-exporturi">5.4 Generare rapoarte și exporturi</a></li>
+            <li><a href="#email">5.5 Comunicare email</a></li>
+          </ol>
+        </li>
+        <li>
+          <a href="#implementare">6. Detalii de implementare</a>
+          <ol>
+            <li><a href="#structura-cod">6.1 Structura codului</a></li>
+            <li><a href="#configurare-aplicatie">6.2 Configurarea aplicației</a></li>
+            <li><a href="#gestionare-erori">6.3 Gestionarea erorilor</a></li>
+            <li><a href="#initializare">6.4 Inițializarea și pornirea sistemului</a></li>
+          </ol>
+        </li>
+        <li><a href="#final">7. Considerații finale</a></li>
+      </ol>
+    </nav>
+
+    <section id="prezentare-generala" typeof="schema:Introduction">
+      <h2>1. Prezentare generală</h2>
+      <p property="schema:description">Collect.me (Object Collector) este o aplicație web complexă destinată colecționarilor, permițând utilizatorilor să catalogheze, organizeze și să împărtășească colecțiile lor personale de obiecte. Sistemul suportă native următoarele tipuri de colecții:</p>
+      <ul>
+        <li>Monede</li>
+        <li>Tablouri</li>
+        <li>Timbre</li>
+        <li>Viniluri</li>
+        <li>Colecții personalizate: Pentru orice alt tip de obiecte, cu atribute configurabile</li>
+      </ul>
+      <p>Backend-ul aplicației este componenta server responsabilă cu procesarea logicii, gestiunea datelor, autentificarea și autorizarea utilizatorilor, interacțiunea cu baza de date și expunerea API-urilor necesare pentru funcționarea frontend-ului. Sistemul este proiectat pentru a fi scalabil, securizat și performant, oferind utilizatorilor o experiență fluidă și fiabilă.</p>
+      <p>Funcționalitățile principale ale backend-ului includ: gestiunea utilizatorilor și a sesiunilor, administrarea colecțiilor și a obiectelor, generarea de statistici și rapoarte, exportul datelor în diverse formate, precum și mecanisme robuste de securitate și protecție a datelor.</p>
+    </section>
+
+    <section id="arhitectura">
+      <h2>2. Arhitectura sistemului</h2>
+      <section id="prezentare-arhitecturala">
+        <h3>2.1 Prezentare arhitecturală</h3>
+        <p>Backend-ul este implementat folosind o arhitectură stratificată,
+          care separă clar responsabilitățile și permite o mai bună organizare
+          și extensibilitate a codului. Arhitectura include următoarele
+          straturi principale:</p>
+
+        <h4>2.1.1 Stratul de prezentare (API Layer)</h4>
+        <p>Responsabil pentru expunerea API-urilor și interacțiunea cu
+          clienții externi (frontend-ul aplicației). Acest strat este
+          implementat prin:</p>
+        <ul>
+          <li><strong>Server HTTP</strong>: Bazat pe clasa HttpServer din
+            Java, gestionează cererile HTTP și direcționează traficul către
+            componentele corespunzătoare</li>
+          <li><strong>Controllere</strong>: Clase specializate care
+            prelucrează cererile HTTP, validează datele de intrare și
+            coordonează execuția operațiunilor</li>
+          <li><strong>Filtre HTTP</strong>: Implementează pre-procesarea și
+            post-procesarea cererilor HTTP (CORS, JWT, XSS prevention)</li>
+          <li><strong>Utilitare de răspuns</strong>: Clase dedicate formatării
+            răspunsurilor HTTP (Response200, Response400, Response500)</li>
+        </ul>
+
+        <h4>2.1.2 Stratul de servicii</h4>
+        <p>Implementează logica a aplicației, independent de protocolul de
+          comunicare sau de mecanismul de persistență. Include:</p>
+        <ul>
+          <li><strong>Servicii</strong>: Clase care încapsulează regulile de
+            business și coordonează operațiunile complexe</li>
+          <li><strong>DTO-uri</strong> (Data Transfer Objects): Structuri
+            pentru transferul datelor între componentele sistemului</li>
+          <li><strong>Validatori</strong>: Mecanisme de validare a datelor și
+            a regulilor de business</li>
+        </ul>
+
+        <h4>2.1.3 Stratul de persistență (Repository Layer)</h4>
+        <p>Gestionează accesul la datele persistente și abstractizează
+          detaliile specifice ale bazei de date:</p>
+        <ul>
+          <li><strong>Repository-uri</strong>: Clase specializate pentru
+            operațiuni CRUD pe entități specifice</li>
+          <li><strong>Manager de bază de date</strong>: Configurează și
+            gestionează conexiunile la baza de date</li>
+          <li><strong>Entități</strong>: Modele care reprezintă structurile de
+            date persistente</li>
+        </ul>
+
+        <h4>2.1.4 Stratul de utilități (Utility Layer)</h4>
+        <p>Oferă funcționalități transversale utilizate în întreaga
+          aplicație:</p>
+        <ul>
+          <li><strong>Procesare JSON</strong>: Utilitare pentru
+            serializarea/deserializarea datelor JSON</li>
+          <li><strong>Trimitere Email</strong>: Servicii pentru comunicarea
+            prin email</li>
+          <li><strong>Generare rapoarte</strong>: Componente pentru generarea
+            rapoartelor în diverse formate</li>
+          <li><strong>Logging</strong>: Sistem de înregistrare a evenimentelor
+            și erorilor</li>
+          <li><strong>Gestionare excepții</strong>: Mecanisme pentru tratarea
+            și raportarea erorilor</li>
+        </ul>
+
+        <h4>2.1.5 Stratul de securitate (Security Layer)</h4>
+        <p>Asigură protecția sistemului și a datelor utilizatorilor:</p>
+        <ul>
+          <li><strong>Autentificare</strong>: Mecanisme de verificare a
+            identității utilizatorilor</li>
+          <li><strong>Autorizare</strong>: Controlul accesului la resurse</li>
+          <li><strong>Protecție împotriva atacurilor</strong>: XSS, CSRF, SQL
+            Injection</li>
+          <li><strong>Criptare</strong>: Protecția datelor sensibile</li>
+        </ul>
+      </section>
+      <section id="diagrama-componente">
+        <h3>2.2 Diagrama componentelor</h3>
+        <p>Sistemul backend este organizat în următoarele componente
+          principale, care interacționează pentru a asigura funcționalitatea
+          completă a aplicației:</p>
+
+        <h4>2.2.1 Essential Backend Modules</h4>
+        <ul>
+          <li><strong>Server</strong>: Componenta centrală care gestionează
+            server-ul HTTP și configurează contextele pentru endpoint-uri</li>
+          <li><strong>Properties</strong>: Gestionează configurația
+            aplicației, încărcată din fișierul application.properties</li>
+          <li><strong>DatabaseManager</strong>: Administrează conexiunile la
+            baza de date și inițializează schema</li>
+          <li><strong>Logger</strong>: Sistem centralizat de logging pentru
+            întreaga aplicație</li>
+        </ul>
+
+        <h4>2.2.2 Security Components</h4>
+        <ul>
+          <li><strong>JwtUtil</strong>: Utilitar pentru generarea și validarea
+            token-urilor JWT</li>
+          <li><strong>JwtFilter</strong>: Filtru HTTP pentru autentificarea și
+            autorizarea cererilor bazate pe JWT</li>
+          <li><strong>CorsFilter</strong>: Configurează și aplică politicile
+            CORS pentru accesul cross-origin</li>
+          <li><strong>XSSPreventionFilter</strong>: Protejează împotriva
+            atacurilor Cross-Site Scripting</li>
+        </ul>
+
+        <h4>2.2.3 Controller Components</h4>
+        <ul>
+          <li><strong>AuthController</strong>: Gestionează operațiunile de
+            autentificare și administrare a contului</li>
+          <li><strong>CollectionController</strong>: Administrează
+            operațiunile pe colecții</li>
+          <li><strong>ObjectController</strong>: Gestionează operațiunile pe
+            obiecte din colecții</li>
+          <li><strong>StatisticsController</strong>: Furnizează statistici și
+            rapoarte</li>
+          <li><strong>PagesController</strong>: Servește fișiere statice și
+            pagini pentru frontend</li>
+        </ul>
+
+        <h4>2.2.4 Service Components</h4>
+        <ul>
+          <li><strong>UserService</strong>: Implementează logica de business
+            pentru utilizatori și conturi</li>
+          <li><strong>CollectionService</strong>: Gestionează operațiunile
+            complexe pe colecții</li>
+          <li><strong>ObjectService</strong>: Administrează procesarea
+            obiectelor din colecții</li>
+          <li><strong>StatisticsService</strong>: Calculează și generează
+            statistici și rapoarte</li>
+        </ul>
+
+        <h4>2.2.5 Repository Components</h4>
+        <ul>
+          <li><strong>UserRepository</strong>: Gestionează persistența datelor
+            utilizatorilor</li>
+          <li><strong>CollectionRepository</strong>: Administrează datele
+            colecțiilor</li>
+          <li><strong>ObjectRepository</strong>: Gestionează persistența
+            obiectelor</li>
+          <li><strong>CustomCollectionRepository</strong>: Administrează
+            câmpurile personalizate pentru colecții</li>
+          <li><strong>ObjectLikeRepository</strong>: Gestionează aprecierile
+            pentru obiecte</li>
+          <li><strong>ObjectViewRepository</strong>: Înregistrează
+            vizualizările obiectelor</li>
+        </ul>
+
+        <h4>2.2.6 Utility Components</h4>
+        <ul>
+          <li><strong>JsonUtil</strong>: Oferă funcționalități pentru
+            serializare/deserializare JSON</li>
+          <li><strong>EmailUtil</strong>: Servicii pentru trimiterea de
+            emailuri</li>
+          <li><strong>MultipartParser</strong>: Procesează încărcări de
+            fișiere și formulare multipart</li>
+          <li><strong>PdfGenerator</strong>: Generează rapoarte în format
+            PDF</li>
+          <li><strong>CsvGenerator</strong>: Generează exporturi în format
+            CSV</li>
+          <li><strong>XmlGenerator</strong>: Creează feed-uri XML și RSS</li>
+        </ul>
+      </section>
+      <section id="flux-date">
+        <h3>2.3 Fluxul de date</h3>
+        <p>Fluxul general de date în sistemul backend urmează un model tipic
+          pentru aplicațiile web stratificate:</p>
+
+        <h4>2.3.1 Flux de cerere-răspuns</h4>
+        <ol>
+          <li><strong>Recepționare cerere HTTP</strong>: Server-ul HTTP
+            primește cererea de la client (frontend)</li>
+          <li><strong>Filtrare</strong>: Cererea trece prin lanțul de filtre:
+            <ul>
+              <li>CorsFilter: Verifică și configurează headerele CORS</li>
+              <li>XSSPreventionFilter: Scanează cererea pentru potențiale
+                atacuri XSS</li>
+              <li>JwtFilter: Validează token-ul JWT pentru rutele
+                protejate</li>
+            </ul>
+          </li>
+          <li><strong>Rutare</strong>: Cererea este direcționată către
+            controller-ul corespunzător</li>
+          <li><strong>Procesare în controller</strong>: Controller-ul
+            identifică operația solicitată și validează cererea</li>
+          <li><strong>Execuție business logic</strong>: Controller-ul delegă
+            procesarea către serviciul corespunzător</li>
+          <li><strong>Accesare date</strong>: Serviciul utilizează
+            repository-urile pentru a interacționa cu baza de date</li>
+          <li><strong>Transformare date</strong>: Datele obținute sunt
+            transformate în DTO-uri pentru răspuns</li>
+          <li><strong>Formatare răspuns</strong>: Controller-ul pregătește
+            răspunsul HTTP (status code, headers, body)</li>
+          <li><strong>Trimitere răspuns</strong>: Răspunsul formatat este
+            trimis înapoi clientului</li>
+        </ol>
+
+        <h4>2.3.2 Exemplu de flux: Autentificare utilizator</h4>
+        <ol>
+          <li>Clientul trimite o cerere POST la /auth/login cu credențialele
+            utilizatorului</li>
+          <li>CorsFilter verifică originea cererii și aplică headerele
+            CORS</li>
+          <li>XSSPreventionFilter scanează cererea pentru potențiale
+            atacuri</li>
+          <li>AuthController primește cererea și extrage credențialele</li>
+          <li>UserService validează credențialele și verifică utilizatorul în
+            baza de date via UserRepository</li>
+          <li>JwtUtil generează un token JWT pentru sesiunea
+            utilizatorului</li>
+          <li>AuthController formatează răspunsul cu token-ul JWT și
+            informațiile utilizatorului</li>
+          <li>Răspunsul este trimis înapoi clientului</li>
+        </ol>
+
+        <h4>2.3.3 Exemplu de flux: Creare obiect în colecție</h4>
+        <ol>
+          <li>Clientul trimite o cerere POST la /my-collection/{id}/objects cu
+            datele obiectului</li>
+          <li>Filtrul CORS verifică originea cererii</li>
+          <li>XSSPreventionFilter scanează cererea pentru potențiale
+            atacuri</li>
+          <li>JwtFilter validează token-ul JWT și extrage informațiile
+            utilizatorului</li>
+          <li>ObjectController primește cererea și extrage datele
+            obiectului</li>
+          <li>ObjectService validează datele și verifică dacă utilizatorul
+            este proprietarul colecției</li>
+          <li>CollectionRepository verifică existența colecției și drepturile
+            de acces</li>
+          <li>ObjectService procesează imaginea obiectului (dacă există) și
+            pregătește datele pentru persistență</li>
+          <li>ObjectRepository salvează obiectul în baza de date</li>
+          <li>ObjectController formatează răspunsul cu informațiile obiectului
+            creat</li>
+          <li>Răspunsul este trimis înapoi clientului</li>
+        </ol>
+      </section>
+      <section id="model-date">
+        <h3>2.4 Modelul de date</h3>
+        <p>Sistemul utilizează un model de date relațional pentru stocarea
+          informațiilor, cu următoarele entități principale:</p>
+
+        <h4>2.4.1 Entități de bază</h4>
+        <ul>
+          <li><strong>User</strong>: Reprezentarea unui utilizator în sistem
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>username: Numele de utilizator</li>
+              <li>password: Parola criptată</li>
+              <li>email: Adresa de email</li>
+              <li>codeSession: Cod pentru validarea sesiunii</li>
+              <li>codeReset: Cod pentru resetarea parolei</li>
+              <li>profilePicture: Calea către imaginea de profil</li>
+              <li>createdAt: Data creării contului</li>
+              <li>updatedAt: Data ultimei actualizări</li>
+            </ul>
+          </li>
+          <li><strong>Collection</strong>: Reprezentarea unei colecții de
+            obiecte
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>idUser: Legătura cu utilizatorul proprietar</li>
+              <li>idTip: Tipul colecției (monede, tablouri, etc.)</li>
+              <li>nume: Numele colecției</li>
+              <li>visibility: Vizibilitatea colecției (publică/privată)</li>
+              <li>value: Valoarea totală a obiectelor din colecție</li>
+              <li>count: Numărul de obiecte din colecție</li>
+              <li>createdAt: Data creării colecției</li>
+            </ul>
+          </li>
+          <li><strong>Obiect</strong>: Reprezentarea unui obiect din colecție
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>idColectie: Legătura cu colecția părinte</li>
+              <li>name: Numele obiectului</li>
+              <li>descriere: Descrierea detaliată</li>
+              <li>Atribute specifice: material, valoare, greutate, numeArtist,
+                etc.</li>
+              <li>visibility: Vizibilitatea obiectului</li>
+              <li>image: Calea către imaginea obiectului</li>
+              <li>createdAt: Data adăugării obiectului</li>
+              <li>updatedAt: Data ultimei actualizări</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>2.4.2 Entități de relație și metadate</h4>
+        <ul>
+          <li><strong>CustomCollection</strong>: Configurația câmpurilor
+            pentru colecții personalizate
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>idColectie: Legătura cu colecția personalizată</li>
+              <li>Configurații de câmpuri: material, valoare, greutate, etc.
+                (boolean)</li>
+              <li>createdAt: Data creării configurației</li>
+            </ul>
+          </li>
+          <li><strong>ObjectView</strong>: Înregistrarea vizualizărilor
+            obiectelor
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>idObject: Legătura cu obiectul vizualizat</li>
+              <li>data: Data vizualizării</li>
+              <li>ora: Ora vizualizării</li>
+              <li>idUser: Utilizatorul care a vizualizat obiectul</li>
+            </ul>
+          </li>
+          <li><strong>ObjectLike</strong>: Înregistrarea aprecierilor pentru
+            obiecte
+            <ul>
+              <li>id: Identificator unic</li>
+              <li>idObject: Legătura cu obiectul apreciat</li>
+              <li>data: Data aprecierii</li>
+              <li>ora: Ora aprecierii</li>
+              <li>idUser: Utilizatorul care a apreciat obiectul</li>
+            </ul>
+          </li>
+        </ul>
+
+        <h4>2.4.3 Entități pentru statistici</h4>
+        <ul>
+          <li><strong>StatisticsProfile</strong>: Agregarea statisticilor la
+            nivel de utilizator</li>
+          <li><strong>StatisticsCollection</strong>: Statistici pentru o
+            colecție specifică</li>
+          <li><strong>StatisticsObject</strong>: Statistici pentru un obiect
+            specific</li>
+          <li><strong>GeneralStatistics</strong>: Statistici globale la
+            nivelul aplicației</li>
+          <li><strong>Clasament</strong>: Reprezentarea clasamentelor pentru
+            diverse criterii</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="functionalitati">
+      <h2>3. Funcționalități principale</h2>
+      <section id="gestiune-utilizatori">
+        <h3>3.1 Gestiunea utilizatorilor</h3>
+        <p>Sistemul oferă un set complet de funcționalități pentru gestionarea
+          conturilor de utilizator, autentificare și autorizare.</p>
+
+        <h4>3.1.1 Înregistrare utilizator</h4>
+        <p>Permite crearea unui cont nou în sistem, cu validarea datelor de
+          înregistrare și trimiterea unui email de confirmare.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>AuthController primește cererea de înregistrare și validează
+            formatul datelor</li>
+          <li>UserService validează unicitatea username-ului și adresei de
+            email</li>
+          <li>Parola este criptată folosind algoritmi securizați</li>
+          <li>UserRepository salvează utilizatorul în baza de date</li>
+          <li>EmailRegister trimite un email de confirmare utilizatorului</li>
+          <li>Se creează structura de directoare pentru fișierele
+            utilizatorului</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>AuthController: Procesarea cererii de înregistrare</li>
+          <li>UserService: Validarea și procesarea datelor</li>
+          <li>UserRepository: Persistența datelor utilizatorului</li>
+          <li>EmailRegister: Trimiterea emailului de confirmare</li>
+          <li>EmailValidator: Validarea formatului adresei de email</li>
+        </ul>
+
+        <h4>3.1.2 Autentificare</h4>
+        <p>Permite utilizatorilor să se autentifice în sistem și să primească
+          un token JWT pentru accesul la resurse protejate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>AuthController primește credențialele și le validează</li>
+          <li>UserService verifică credențialele în baza de date</li>
+          <li>Se generează un cod de sesiune unic pentru utilizator</li>
+          <li>JwtUtil generează un token JWT cu informațiile utilizatorului și
+            codul de sesiune</li>
+          <li>Răspunsul include token-ul JWT și informații de bază despre
+            utilizator</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>AuthController: Procesarea cererii de autentificare</li>
+          <li>UserService: Validarea credențialelor</li>
+          <li>UserRepository: Accesarea datelor utilizatorului</li>
+          <li>JwtUtil: Generarea token-ului JWT</li>
+        </ul>
+
+        <h4>3.1.3 Resetare parolă</h4>
+        <p>Permite utilizatorilor să-și reseteze parola în cazul în care au
+          uitat-o, prin intermediul unui cod de verificare trimis pe
+          email.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>AuthController primește cererea de resetare cu adresa de
+            email</li>
+          <li>UserService verifică existența utilizatorului cu adresa
+            respectivă</li>
+          <li>Se generează un cod de resetare unic și se salvează în contul
+            utilizatorului</li>
+          <li>EmailResetPassword trimite un email cu codul de resetare</li>
+          <li>Utilizatorul trimite codul și noua parolă pentru a finaliza
+            procesul</li>
+          <li>UserService verifică codul, actualizează parola și resetează
+            codul de resetare</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>AuthController: Procesarea cererilor de resetare</li>
+          <li>UserService: Gestionarea procesului de resetare</li>
+          <li>UserRepository: Actualizarea datelor utilizatorului</li>
+          <li>EmailResetPassword: Trimiterea emailului cu codul de
+            resetare</li>
+        </ul>
+
+        <h4>3.1.4 Gestionare profil</h4>
+        <p>Permite utilizatorilor să-și administreze profilul, incluzând
+          schimbarea informațiilor personale, a parolei și a imaginii de
+          profil.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>AuthController primește cererea de actualizare a profilului</li>
+          <li>JwtFilter validează autentificarea utilizatorului</li>
+          <li>UserService procesează modificările solicitate</li>
+          <li>În cazul schimbării username-ului, se actualizează și structura
+            de directoare</li>
+          <li>Pentru imaginea de profil, se procesează și se stochează
+            fișierul încărcat</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>AuthController: Procesarea cererilor de gestionare a
+            profilului</li>
+          <li>UserService: Implementarea logicii de actualizare</li>
+          <li>UserRepository: Persistența modificărilor</li>
+          <li>MultipartParser: Procesarea încărcărilor de fișiere pentru
+            imaginea de profil</li>
+        </ul>
+
+        <h4>3.1.5 Deconectare și ștergere cont</h4>
+        <p>Permite utilizatorilor să se deconecteze din sistem sau să-și
+          șteargă definitiv contul.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>Pentru deconectare, se invalidează codul de sesiune al
+            utilizatorului</li>
+          <li>Pentru ștergerea contului, se verifică parola și se confirmă
+            intenția</li>
+          <li>La ștergere, se elimină toate colecțiile, obiectele și resursele
+            asociate</li>
+          <li>Se șterge structura de directoare a utilizatorului</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>AuthController: Procesarea cererilor de deconectare și
+            ștergere</li>
+          <li>UserService: Implementarea logicii de deconectare și
+            ștergere</li>
+          <li>CollectionRepository: Ștergerea colecțiilor utilizatorului</li>
+          <li>ObjectRepository: Ștergerea obiectelor utilizatorului</li>
+        </ul>
+      </section>
+      <section id="gestiune-colectii">
+        <h3>3.2 Gestiunea colecțiilor</h3>
+        <p>Sistemul permite utilizatorilor să creeze și să administreze
+          colecții de obiecte, cu diferite tipuri predefinite sau
+          personalizate.</p>
+
+        <h4>3.2.1 Creare colecție</h4>
+        <p>Permite utilizatorilor să creeze o nouă colecție, specificând tipul
+          și configurând atributele pentru colecțiile personalizate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>CollectionController primește cererea de creare a colecției</li>
+          <li>JwtFilter validează autentificarea utilizatorului</li>
+          <li>CollectionService validează datele colecției</li>
+          <li>CollectionRepository salvează colecția în baza de date</li>
+          <li>Pentru colecțiile personalizate, se salvează configurația
+            câmpurilor în CustomCollectionRepository</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>CollectionController: Procesarea cererii de creare</li>
+          <li>CollectionService: Validarea și procesarea datelor</li>
+          <li>CollectionRepository: Persistența colecției</li>
+          <li>CustomCollectionRepository: Salvarea configurației
+            personalizate</li>
+        </ul>
+
+        <h4>3.2.2 Actualizare colecție</h4>
+        <p>Permite modificarea proprietăților unei colecții existente,
+          inclusiv numele, vizibilitatea și configurația câmpurilor
+          personalizate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>CollectionController primește cererea de actualizare</li>
+          <li>CollectionService verifică drepturile de acces ale
+            utilizatorului</li>
+          <li>Se actualizează proprietățile colecției</li>
+          <li>Pentru colecțiile personalizate, se actualizează și configurația
+            câmpurilor</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>CollectionController: Procesarea cererii de actualizare</li>
+          <li>CollectionService: Validarea și procesarea modificărilor</li>
+          <li>CollectionRepository: Actualizarea datelor colecției</li>
+          <li>CustomCollectionRepository: Actualizarea configurației
+            personalizate</li>
+        </ul>
+
+        <h4>3.2.3 Ștergere colecție</h4>
+        <p>Permite eliminarea unei colecții împreună cu toate obiectele
+          asociate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>CollectionController primește cererea de ștergere</li>
+          <li>CollectionService verifică drepturile de acces ale
+            utilizatorului</li>
+          <li>Se șterg toate obiectele din colecție și resursele asociate
+            (imagini)</li>
+          <li>Se șterge configurația personalizată (dacă există)</li>
+          <li>Se elimină colecția din baza de date</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>CollectionController: Procesarea cererii de ștergere</li>
+          <li>CollectionService: Coordonarea procesului de ștergere</li>
+          <li>ObjectRepository: Ștergerea obiectelor asociate</li>
+          <li>CustomCollectionRepository: Eliminarea configurației
+            personalizate</li>
+          <li>CollectionRepository: Eliminarea colecției</li>
+        </ul>
+
+        <h4>3.2.4 Vizualizare colecții</h4>
+        <p>Permite listarea colecțiilor proprii sau publice, cu informații
+          detaliate și statistici.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>CollectionController primește cererea de listare</li>
+          <li>Pentru colecțiile proprii, se verifică autentificarea
+            utilizatorului</li>
+          <li>CollectionService recuperează colecțiile corespunzătoare</li>
+          <li>Se calculează statisticile asociate (număr de obiecte, valoare
+            totală, etc.)</li>
+          <li>Se formatează răspunsul cu datele colecțiilor</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>CollectionController: Procesarea cererilor de listare</li>
+          <li>CollectionService: Recuperarea și procesarea datelor</li>
+          <li>CollectionRepository: Accesarea colecțiilor</li>
+          <li>ObjectRepository: Calculul statisticilor</li>
+        </ul>
+
+        <h4>3.2.5 Vizualizare colecție specifică</h4>
+        <p>Permite accesarea informațiilor detaliate despre o colecție
+          specifică, inclusiv statistici și metadate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>CollectionController primește cererea cu ID-ul colecției</li>
+          <li>Se verifică existența colecției și drepturile de acces</li>
+          <li>CollectionService recuperează datele colecției și statisticile
+            asociate</li>
+          <li>Pentru colecțiile personalizate, se încarcă și configurația
+            câmpurilor</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>CollectionController: Procesarea cererii de vizualizare</li>
+          <li>CollectionService: Recuperarea și procesarea datelor</li>
+          <li>CollectionRepository: Accesarea datelor colecției</li>
+          <li>CustomCollectionRepository: Încărcarea configurației
+            personalizate</li>
+        </ul>
+      </section>
+      <section id="gestiune-obiecte">
+        <h3>3.3 Gestiunea obiectelor</h3>
+        <p>Sistemul permite utilizatorilor să administreze obiectele din
+          colecții, cu suport pentru diverse atribute în funcție de tipul
+          colecției.</p>
+
+        <h4>3.3.1 Adăugare obiect</h4>
+        <p>Permite adăugarea unui obiect nou într-o colecție, cu atributele
+          specifice tipului de colecție și o imagine opțională.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea de adăugare a obiectului</li>
+          <li>Se verifică drepturile utilizatorului asupra colecției
+            părinte</li>
+          <li>ObjectService validează datele obiectului conform tipului
+            colecției</li>
+          <li>Pentru colecțiile personalizate, se validează conform
+            configurației</li>
+          <li>Se procesează imaginea obiectului (dacă există) și se
+            stochează</li>
+          <li>ObjectRepository salvează obiectul în baza de date</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererii de adăugare</li>
+          <li>ObjectService: Validarea și procesarea datelor</li>
+          <li>CollectionRepository: Verificarea colecției părinte</li>
+          <li>MultipartParser: Procesarea imaginii obiectului</li>
+          <li>ObjectRepository: Persistența obiectului</li>
+        </ul>
+
+        <h4>3.3.2 Actualizare obiect</h4>
+        <p>Permite modificarea proprietăților unui obiect existent, inclusiv
+          atributele și imaginea.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea de actualizare</li>
+          <li>Se verifică existența obiectului și drepturile
+            utilizatorului</li>
+          <li>ObjectService validează noile date conform tipului
+            colecției</li>
+          <li>Dacă se actualizează imaginea, se procesează și se înlocuiește
+            cea veche</li>
+          <li>ObjectRepository actualizează obiectul în baza de date</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererii de actualizare</li>
+          <li>ObjectService: Validarea și procesarea modificărilor</li>
+          <li>MultipartParser: Procesarea noii imagini (dacă există)</li>
+          <li>ObjectRepository: Actualizarea datelor obiectului</li>
+        </ul>
+
+        <h4>3.3.3 Ștergere obiect</h4>
+        <p>Permite eliminarea unui obiect din colecție, inclusiv resursele
+          asociate.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea de ștergere</li>
+          <li>Se verifică existența obiectului și drepturile
+            utilizatorului</li>
+          <li>ObjectService coordonează ștergerea obiectului și a resurselor
+            asociate</li>
+          <li>Se elimină statisticile asociate (like-uri, vizualizări)</li>
+          <li>Se șterge imaginea obiectului (dacă există)</li>
+          <li>ObjectRepository elimină obiectul din baza de date</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererii de ștergere</li>
+          <li>ObjectService: Coordonarea procesului de ștergere</li>
+          <li>ObjectLikeRepository: Eliminarea aprecierilor</li>
+          <li>ObjectViewRepository: Eliminarea vizualizărilor</li>
+          <li>ObjectRepository: Eliminarea obiectului</li>
+        </ul>
+
+        <h4>3.3.4 Vizualizare obiecte</h4>
+        <p>Permite listarea obiectelor din colecții, cu filtrare și
+          ordonare.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea de listare</li>
+          <li>Se verifică drepturile de acces pentru colecția specificată</li>
+          <li>ObjectService recuperează obiectele conform criteriilor</li>
+          <li>Se încarcă statisticile asociate (vizualizări, aprecieri)</li>
+          <li>Se formatează răspunsul cu datele obiectelor</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererilor de listare</li>
+          <li>ObjectService: Recuperarea și procesarea datelor</li>
+          <li>ObjectRepository: Accesarea obiectelor</li>
+          <li>ObjectLikeRepository: Încărcarea aprecierilor</li>
+          <li>ObjectViewRepository: Încărcarea vizualizărilor</li>
+        </ul>
+
+        <h4>3.3.5 Vizualizare obiect specific</h4>
+        <p>Permite accesarea informațiilor detaliate despre un obiect,
+          înregistrând vizualizarea.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea cu ID-ul obiectului</li>
+          <li>Se verifică existența obiectului și drepturile de acces</li>
+          <li>ObjectService înregistrează vizualizarea în
+            ObjectViewRepository</li>
+          <li>Se încarcă datele complete ale obiectului, inclusiv
+            imaginea</li>
+          <li>Se formatează răspunsul cu datele obiectului și statisticile
+            asociate</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererii de vizualizare</li>
+          <li>ObjectService: Recuperarea datelor și înregistrarea
+            vizualizării</li>
+          <li>ObjectRepository: Accesarea datelor obiectului</li>
+          <li>ObjectViewRepository: Înregistrarea vizualizării</li>
+        </ul>
+
+        <h4>3.3.6 Apreciere obiect</h4>
+        <p>Permite utilizatorilor să aprecieze (like) un obiect, înregistrând
+          interacțiunea.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>ObjectController primește cererea de apreciere</li>
+          <li>Se verifică autentificarea utilizatorului și accesul la
+            obiect</li>
+          <li>ObjectService înregistrează aprecierea în
+            ObjectLikeRepository</li>
+          <li>Se actualizează contoarele de aprecieri pentru obiect</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>ObjectController: Procesarea cererii de apreciere</li>
+          <li>ObjectService: Procesarea aprecierii</li>
+          <li>ObjectLikeRepository: Înregistrarea aprecierii</li>
+          <li>ObjectRepository: Actualizarea contorului de aprecieri</li>
+        </ul>
+      </section>
+      <section id="statistici-rapoarte">
+        <h3>3.4 Statistici și rapoarte</h3>
+        <p>Sistemul oferă funcționalități avansate pentru generarea de
+          statistici și rapoarte despre colecții și obiecte.</p>
+
+        <h4>3.4.1 Statistici personale</h4>
+        <p>Generează statistici detaliate despre colecțiile și obiectele unui
+          utilizator.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>StatisticsController primește cererea de statistici
+            personale</li>
+          <li>Se verifică autentificarea utilizatorului</li>
+          <li>StatisticsService colectează datele despre colecțiile și
+            obiectele utilizatorului</li>
+          <li>Se calculează statistici agregate: număr total de obiecte,
+            valoare totală, vizualizări, aprecieri</li>
+          <li>Se identifică obiectele și colecțiile cele mai populare</li>
+          <li>Se formatează răspunsul cu statisticile calculate</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>StatisticsController: Procesarea cererii de statistici</li>
+          <li>StatisticsService: Calculul și agregarea statisticilor</li>
+          <li>CollectionRepository: Accesarea datelor colecțiilor</li>
+          <li>ObjectRepository: Accesarea datelor obiectelor</li>
+          <li>ObjectLikeRepository: Recuperarea aprecierilor</li>
+          <li>ObjectViewRepository: Recuperarea vizualizărilor</li>
+        </ul>
+
+        <h4>3.4.2 Statistici globale</h4>
+        <p>Generează statistici la nivelul întregii platforme, cu topuri și
+          clasamente.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>StatisticsController primește cererea de statistici globale</li>
+          <li>StatisticsService colectează și agregă datele din întreaga
+            platformă</li>
+          <li>Se calculează distribuția colecțiilor pe tipuri</li>
+          <li>Se generează topuri: cele mai vizualizate/apreciate colecții și
+            obiecte</li>
+          <li>Se calculează tendințele de creștere și activitatea recentă</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>StatisticsController: Procesarea cererii de statistici</li>
+          <li>StatisticsService: Calculul și agregarea statisticilor</li>
+          <li>GeneralStatisticsRepository: Recuperarea datelor agregate</li>
+        </ul>
+
+        <h4>3.4.3 Export PDF</h4>
+        <p>Permite exportul statisticilor în format PDF, cu formatare
+          profesională.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>StatisticsController primește cererea de export PDF</li>
+          <li>StatisticsService colectează datele necesare (personale sau
+            globale)</li>
+          <li>PdfPersonalStatistics/PdfGeneralStatistics generează documentul
+            PDF</li>
+          <li>Se formatează datele în tabele, grafice și secțiuni
+            structurate</li>
+          <li>Se returnează documentul PDF generat</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>StatisticsController: Procesarea cererii de export</li>
+          <li>StatisticsService: Colectarea datelor pentru raport</li>
+          <li>PdfPersonalStatistics: Generarea PDF-ului pentru statistici
+            personale</li>
+          <li>PdfGeneralStatistics: Generarea PDF-ului pentru statistici
+            globale</li>
+        </ul>
+
+        <h4>3.4.4 Export CSV</h4>
+        <p>Permite exportul datelor în format CSV pentru analiză și prelucrare
+          externă.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>StatisticsController primește cererea de export CSV</li>
+          <li>StatisticsService colectează datele necesare</li>
+          <li>CsvPersonalStatistics/CsvGeneralStatistics generează fișierul
+            CSV</li>
+          <li>Se structurează datele în format tabelar, cu header
+            corespunzător</li>
+          <li>Se returnează fișierul CSV generat</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>StatisticsController: Procesarea cererii de export</li>
+          <li>StatisticsService: Colectarea datelor pentru export</li>
+          <li>CsvPersonalStatistics: Generarea CSV-ului pentru statistici
+            personale</li>
+          <li>CsvGeneralStatistics: Generarea CSV-ului pentru statistici
+            globale</li>
+        </ul>
+
+        <h4>3.4.5 Flux RSS</h4>
+        <p>Generează un feed RSS cu statisticile globale actualizate
+          periodic.</p>
+        <p><strong>Proces de implementare:</strong></p>
+        <ol>
+          <li>StatisticsController primește cererea de acces la feed-ul
+            RSS</li>
+          <li>XmlGeneralStatistics generează sau recuperează feed-ul XML în
+            format RSS</li>
+          <li>Se includ statisticile recente și topurile actualizate</li>
+          <li>Feed-ul RSS este returnat clientului cu headers
+            corespunzătoare</li>
+        </ol>
+        <p><strong>Componente implicate:</strong></p>
+        <ul>
+          <li>StatisticsController: Procesarea cererii de feed RSS</li>
+          <li>StatisticsService: Colectarea datelor pentru feed</li>
+          <li>XmlGeneralStatistics: Generarea și caching-ul feed-ului RSS</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="securitate">
+      <h2>4. Securitate</h2>
+      <section id="jwt">
+        <h3>4.1 Autentificare JWT</h3>
+        <p>Sistemul utilizează JSON Web Tokens (JWT) pentru autentificarea și
+          autorizarea utilizatorilor, oferind o soluție scalabilă pentru
+          gestionarea sesiunilor.</p>
+
+        <h4>4.1.1 Generare token</h4>
+        <p>Procesul de generare a token-urilor JWT se realizează în clasa
+          <code>JwtUtil</code> și include următoarele etape:</p>
+        <ol>
+          <li>Validarea datelor utilizatorului</li>
+          <li>Crearea payload-ului JWT cu informațiile utilizatorului
+            (username, email, id, codeSession)</li>
+          <li>Stabilirea perioadei de valabilitate (8 ore implicit)</li>
+          <li>Semnarea token-ului cu cheia secretă generată la pornirea
+            aplicației</li>
+        </ol>
+        <p>Token-ul JWT generat conține suficiente informații pentru
+          identificarea utilizatorului, fără a necesita interogări
+          suplimentare în baza de date pentru fiecare cerere.</p>
+
+        <h4>4.1.2 Validare token</h4>
+        <p><code>JwtFilter</code> interceptează toate cererile către rutele
+          protejate și verifică token-ul JWT furnizat în header-ul
+          Authorization:</p>
+        <ol>
+          <li>Verificarea prezenței și formatului token-ului (Bearer
+            [token])</li>
+          <li>Validarea semnăturii token-ului cu cheia secretă</li>
+          <li>Verificarea expirării token-ului</li>
+          <li>Extragerea informațiilor utilizatorului din token</li>
+          <li>Verificarea validității sesiunii (codeSession) prin interogarea
+            bazei de date</li>
+        </ol>
+        <p>Această abordare permite invalidarea imediată a sesiunilor în caz
+          de deconectare sau compromitere a contului.</p>
+
+        <h4>4.1.3 Gestiunea sesiunilor</h4>
+        <p>Sistemul folosește un mecanism de gestiune a sesiunilor bazat pe
+          codul de sesiune (codeSession):</p>
+        <ul>
+          <li>La autentificare, se generează un cod de sesiune unic și se
+            salvează în contul utilizatorului</li>
+          <li>Codul de sesiune este inclus în token-ul JWT</li>
+          <li>La fiecare cerere autentificată, se verifică dacă codul de
+            sesiune din token corespunde cu cel din baza de date</li>
+          <li>La deconectare, se modifică codul de sesiune, invalidând astfel
+            toate token-urile anterioare</li>
+        </ul>
+        <p>Acest mecanism oferă un control fin asupra sesiunilor active și
+          permite deconectarea imediată de pe toate dispozitivele.</p>
+      </section>
+      <section id="xss">
+        <h3>4.2 Prevenirea atacurilor XSS</h3>
+        <p>Sistemul implementează un filtru complex
+          (<code>XSSPreventionFilter</code>) pentru detectarea și prevenirea
+          atacurilor Cross-Site Scripting (XSS).</p>
+
+        <h4>4.2.1 Metode de detecție</h4>
+        <p>Filtrul utilizează multiple tehnici pentru detectarea potențialelor
+          atacuri XSS:</p>
+        <ul>
+          <li>Pattern-uri regex pentru identificarea scripturilor malițioase
+            în URL-uri, parametri și body</li>
+          <li>Verificări separate pentru headere, cu reguli specifice pentru
+            headerele standard</li>
+          <li>Analiză specifică pentru conținut de tip JSON, cu extragerea și
+            verificarea valorilor</li>
+          <li>Procesare specială pentru conținut multipart/form-data, cu
+            analiză separată pentru fiecare parte</li>
+        </ul>
+        <p>Aceste verificări sunt aplicate tuturor componentelor cererii HTTP,
+          inclusiv path, query parameters, headere și body.</p>
+
+        <h4>4.2.2 Răspuns la detecția atacurilor</h4>
+        <p>Când se detectează un potențial atac XSS, sistemul:</p>
+        <ol>
+          <li>Blochează cererea și nu o transmite mai departe în lanțul de
+            procesare</li>
+          <li>Înregistrează tentativa în sistemul de logging, cu nivel
+            MALICIOUS</li>
+          <li>Returnează un răspuns 400 Bad Request către client</li>
+          <li>Nu include detalii specifice despre motivul blocării, pentru a
+            nu oferi informații potențial utile atacatorilor</li>
+        </ol>
+        <p>Această abordare defensivă protejează sistemul și utilizatorii
+          împotriva unei game largi de atacuri XSS.</p>
+      </section>
+      <section id="cors">
+        <h3>4.3 Configurare CORS</h3>
+        <p>Sistemul implementează un mecanism de Cross-Origin Resource Sharing
+          (CORS) pentru a controla accesul la API din diferite origini.</p>
+
+        <h4>4.3.1 Implementare</h4>
+        <p><code>CorsFilter</code> interceptează toate cererile HTTP și aplică
+          politica CORS configurată:</p>
+        <ul>
+          <li>Adaugă headerele Access-Control-Allow-Origin pentru a specifica
+            originile permise</li>
+          <li>Configurează headerele Access-Control-Allow-Headers pentru a
+            specifica headerele permise în cereri</li>
+          <li>Setează headerele Access-Control-Allow-Methods pentru a
+            specifica metodele HTTP permise</li>
+          <li>Procesează special cererile OPTIONS (preflight) pentru a permite
+            verificarea permisiunilor CORS</li>
+        </ul>
+        <p>Aceste configurări sunt citite din fișierul de proprietăți și pot
+          fi adaptate pentru diferite medii de deployment.</p>
+
+        <h4>4.3.2 Configurare</h4>
+        <p>Politica CORS poate fi configurată prin următoarele
+          proprietăți:</p>
+        <ul>
+          <li><code>cors.allow.origin</code>: Specifică originile permise
+            (implicit "*" pentru dezvoltare)</li>
+          <li><code>cors.allow.headers</code>: Lista headerelor permise în
+            cereri (implicit "Content-Type, Authorization")</li>
+          <li><code>cors.allow.methods</code>: Metodele HTTP permise (implicit
+            "GET, POST, PUT, DELETE, OPTIONS")</li>
+        </ul>
+
+      </section>
+      <section id="validare-date">
+        <h3>4.4 Validarea datelor</h3>
+        <p>Sistemul implementează multiple niveluri de validare a datelor
+          pentru a preveni intrări malițioase sau invalide.</p>
+
+        <h4>4.4.1 Validare la nivel de controller</h4>
+        <p>Controller-ele verifică formatul și prezența parametrilor
+          obligatorii în cereri:</p>
+        <ul>
+          <li>Validarea path parameters pentru existență și format</li>
+          <li>Verificarea metodei HTTP pentru endpoint-ul solicitat</li>
+          <li>Validarea formatului datelor primite (JSON, multipart,
+            etc.)</li>
+        </ul>
+
+        <h4>4.4.2 Validare la nivel de serviciu</h4>
+        <p>Serviciile implementează validări complexe ale datelor de
+          business:</p>
+        <ul>
+          <li>Verificarea regulilor de business specifice entităților</li>
+          <li>Validarea relațiilor între entități (ex: proprietatea asupra
+            colecțiilor)</li>
+          <li>Verificarea unicității și integrității datelor</li>
+        </ul>
+
+        <h4>4.4.3 Validatori specializați</h4>
+        <p>Sistemul include validatori specializați pentru anumite tipuri de
+          date:</p>
+        <ul>
+          <li><code>EmailValidator</code>: Verifică formatul adreselor de
+            email</li>
+          <li>Validatori pentru diferite tipuri de colecții, care verifică
+            prezența și formatul atributelor obligatorii</li>
+          <li>Validarea fișierelor încărcate </li>
+        </ul>
+      </section>
+      <section id="bd-securitate">
+        <h3>4.5 Securitatea bazei de date</h3>
+        <p>Sistemul implementează practici de securitate pentru accesul și
+          manipularea datelor în baza de date.</p>
+
+        <h4>4.5.1 Prevenirea SQL Injection</h4>
+        <p>Pentru a preveni atacurile de tip SQL Injection, sistemul:</p>
+        <ul>
+          <li>Utilizează PreparedStatement pentru toate interogările SQL</li>
+          <li>Parametrizează toate valorile incluse în interogări</li>
+          <li>Evită construirea de interogări prin concatenare directă de
+            string-uri</li>
+          <li>Validează datele înainte de a le include în interogări</li>
+        </ul>
+
+        <h4>4.5.2 Managementul conexiunilor</h4>
+        <p>Conexiunile la baza de date sunt gestionate în mod securizat:</p>
+        <ul>
+          <li>Credențialele sunt stocate în fișierul de proprietăți, separat
+            de cod</li>
+          <li>Conexiunile sunt închise corect după utilizare, folosind blocuri
+            try-with-resources</li>
+          <li>Sistemul verifică drepturile de acces la nivel de aplicație
+            înainte de a executa operațiuni pe date</li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="tehnologii">
+      <h2>5. Tehnologii și librării</h2>
+      <section id="tehnologii-baza">
+        <h3>5.1 Tehnologii de bază</h3>
+        <ul>
+          <li><strong>Java 11+</strong>: Limbajul de programare principal,
+            oferind performanță, portabilitate și un ecosistem bogat de
+            librării</li>
+          <li><strong>HttpServer</strong>: Server HTTP integrat în Java
+            (com.sun.net.httpserver), utilizat pentru gestionarea cererilor
+            web și expunerea API-urilor</li>
+          <li><strong>JDBC (Java Database Connectivity)</strong>: API standard
+            pentru conectarea și interacțiunea cu baze de date
+            relaționale</li>
+          <li><strong>Properties API</strong>: Utilizat pentru încărcarea și
+            gestionarea configurațiilor din fișiere externe</li>
+        </ul>
+      </section>
+      <section id="librarii-securitate">
+        <h3>5.2 Librării pentru autentificare și securitate</h3>
+        <ul>
+          <li><strong>jjwt (Java JWT)</strong>: Librărie pentru generarea și
+            validarea token-urilor JWT pentru autentificare
+            <ul>
+              <li>Oferă funcționalități complete pentru crearea, semnarea și
+                verificarea token-urilor JWT</li>
+              <li>Suportă algoritmi de semnare precum HMAC-SHA256</li>
+              <li>Permite includerea și extragerea de claims
+                personalizate</li>
+            </ul>
+          </li>
+          <li><strong>Java Security API</strong>: Utilizat pentru generarea
+            cheilor de semnare și criptare
+            <ul>
+              <li>Generarea de chei criptografice pentru semnarea token-urilor
+                JWT</li>
+              <li>Algoritmi de hash pentru stocarea securizată a
+                parolelor</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section id="serializare-date">
+        <h3>5.3 Procesare și serializare date</h3>
+        <ul>
+          <li><strong>Gson</strong>: Librărie Google pentru serializare și
+            deserializare JSON
+            <ul>
+              <li>Conversie bidirectională între obiecte Java și JSON</li>
+              <li>Suport pentru tipuri generice și colecții</li>
+              <li>Adaptoare personalizate pentru tipuri specifice (LocalDate,
+                LocalDateTime)</li>
+              <li>Formatare JSON pentru răspunsuri API</li>
+            </ul>
+          </li>
+          <li><strong>Java IO/NIO</strong>: API-uri standard pentru operațiuni
+            de fișiere și stream-uri
+            <ul>
+              <li>Procesarea fișierelor încărcate (imagini pentru obiecte și
+                profile)</li>
+              <li>Manipularea stream-urilor pentru cereri și răspunsuri
+                HTTP</li>
+              <li>Operațiuni de citire/scriere pentru generarea rapoartelor și
+                exporturilor</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section id="rapoarte-exporturi">
+        <h3>5.4 Generare rapoarte și exporturi</h3>
+        <ul>
+          <li><strong>iText 7</strong>: Librărie pentru generarea documentelor
+            PDF
+            <ul>
+              <li>Crearea rapoartelor structurate în format PDF pentru
+                statistici personale și globale</li>
+              <li>Suport pentru tabele, fonturi, culori și formatare
+                avansată</li>
+              <li>Generarea dinamică a conținutului pe baza datelor din
+                sistem</li>
+            </ul>
+          </li>
+          <li><strong>JAXP (Java API for XML Processing)</strong>: API
+            standard pentru procesarea XML
+            <ul>
+              <li>Generarea feed-urilor RSS în format XML pentru
+                statistici</li>
+              <li>Procesarea și validarea documentelor XML</li>
+              <li>Transformarea între diferite formate de date</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <section id="email">
+        <h3>5.5 Comunicare email</h3>
+        <ul>
+          <li><strong>Jakarta Mail (fostul JavaMail)</strong>: API pentru
+            trimiterea și primirea de email-uri
+            <ul>
+              <li>Trimiterea email-urilor de confirmare la înregistrare</li>
+              <li>Comunicarea codurilor de resetare a parolei</li>
+              <li>Configurarea conexiunilor SMTP pentru trimiterea
+                email-urilor</li>
+              <li>Suport pentru șabloane de email personalizate</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <section id="implementare">
+      <h2>6. Detalii de implementare</h2>
+      <section id="structura-cod">
+        <h3>6.1 Structura codului</h3>
+        <p>Codul backend-ului urmează un model de organizare pe pachete și
+          subpachete, grupate pe funcționalități și responsabilități:</p>
+
+        <h4>6.1.1 Pachete principale</h4>
+        <ul>
+          <li><strong>backend.api</strong>: Pachetul rădăcină al
+            aplicației</li>
+          <li><strong>backend.api.config</strong>: Configurații și setări
+            pentru diverse componente ale sistemului</li>
+          <li><strong>backend.api.controller</strong>: Controller-e pentru
+            gestionarea cererilor HTTP</li>
+          <li><strong>backend.api.service</strong>: Servicii pentru
+            implementarea logicii de business</li>
+          <li><strong>backend.api.repository</strong>: Repository-uri pentru
+            interacțiunea cu baza de date</li>
+          <li><strong>backend.api.model</strong>: Modele și entități ale
+            sistemului</li>
+          <li><strong>backend.api.exception</strong>: Clase pentru gestionarea
+            și raportarea excepțiilor</li>
+          <li><strong>backend.api.util</strong>: Utilitare și componente
+            auxiliare</li>
+          <li><strong>backend.api.dataTransferObject</strong>: DTO-uri pentru
+            transferul datelor între straturi</li>
+        </ul>
+
+        <h4>6.1.2 Subpachete specializate</h4>
+        <ul>
+          <li><strong>backend.api.config.applicationConfig</strong>:
+            Configurații generale ale aplicației</li>
+          <li><strong>backend.api.config.controllerConfig</strong>:
+            Configurații pentru controller-e</li>
+          <li><strong>backend.api.config.databaseConfig</strong>: Configurații
+            pentru baza de date</li>
+          <li><strong>backend.api.config.jwtConfig</strong>: Configurații
+            pentru autentificarea JWT</li>
+          <li><strong>backend.api.model.GlobalStatistics</strong>: Modele
+            pentru statistici globale</li>
+          <li><strong>backend.api.model.PersonalStatistics</strong>: Modele
+            pentru statistici personale</li>
+          <li><strong>backend.api.util.email</strong>: Utilitare pentru
+            comunicarea prin email</li>
+          <li><strong>backend.api.util.files</strong>: Utilitare pentru
+            generarea de fișiere (PDF, CSV, XML)</li>
+          <li><strong>backend.api.util.json</strong>: Utilitare pentru
+            procesarea JSON</li>
+          <li><strong>backend.api.util.multipart</strong>: Utilitare pentru
+            procesarea cererilor multipart</li>
+        </ul>
+
+      </section>
+      <section id="configurare-aplicatie">
+        <h3>6.2 Configurarea aplicației</h3>
+        <p>Sistemul folosește un mecanism flexibil de configurare, bazat pe
+          fișiere de proprietăți externe:</p>
+
+        <h4>6.2.1 Fișierul application.properties</h4>
+        <p>Principalul fișier de configurare conține setări pentru:</p>
+        <ul>
+          <li>Adresa și portul serverului HTTP</li>
+          <li>Configurația bazei de date (URL, utilizator, parolă,
+            driver)</li>
+          <li>Setările pentru CORS (origini, headere și metode permise)</li>
+          <li>Credențialele pentru serviciul de email</li>
+          <li>Căile pentru directoarele de stocare a fișierelor</li>
+        </ul>
+
+        <h4>6.2.2 Clasa Properties</h4>
+        <p>Clasa <code>Properties</code> din pachetul
+          <code>backend.api.config.applicationConfig</code> încarcă și
+          gestionează configurările:</p>
+        <ul>
+          <li>Încărcarea proprietăților din fișierul
+            application.properties</li>
+          <li>Metode specifice pentru accesarea diferitelor setări (getPort,
+            getAddress, etc.)</li>
+          <li>Valori implicite pentru configurațiile opționale</li>
+          <li>Accesarea dinamică a proprietăților prin numele lor</li>
+        </ul>
+
+      </section>
+      <section id="gestionare-erori">
+        <h3>6.3 Gestionarea erorilor</h3>
+        <p>Sistemul implementează un mecanism robust pentru gestionarea,
+          raportarea și tratarea erorilor:</p>
+
+        <h4>6.3.1 Ierarhia de excepții</h4>
+        <p>O ierarhie structurată de excepții, bazată pe clasa
+          <code>CustomException</code>:</p>
+        <ul>
+          <li><code>CustomException</code>: Clasa de bază pentru toate
+            excepțiile personalizate</li>
+          <li><code>Exception400</code>: Subclase pentru erori de client
+            (BadRequest, Unauthorized, etc.)</li>
+          <li><code>Exception500</code>: Subclase pentru erori de server
+            (InternalServerError, etc.)</li>
+        </ul>
+        <p>Fiecare excepție include:</p>
+        <ul>
+          <li>Un tip (identificator tehnic al erorii)</li>
+          <li>Un nume (descriere scurtă și clară)</li>
+          <li>O descriere detaliată</li>
+          <li>Opțional, excepția care a cauzat eroarea</li>
+        </ul>
+
+        <h4>6.3.2 Logging centralizat</h4>
+        <p>Clasa <code>Logger</code> din pachetul
+          <code>backend.api.exception</code> oferă un sistem centralizat de
+          logging:</p>
+        <ul>
+          <li>Niveluri de logging diferite (ERROR, WARNING, INFO, DEBUG,
+            etc.)</li>
+          <li>Formatare vizuală a mesajelor în consolă, cu coduri de
+            culoare</li>
+          <li>Timestamp pentru fiecare mesaj pentru urmărire temporală</li>
+          <li>Metode specializate pentru diferite tipuri de evenimente</li>
+          <li>Identificarea activităților malițioase cu nivel specific
+            (MALICIOUS)</li>
+        </ul>
+
+        <h4>6.3.3 Tratarea erorilor în API</h4>
+        <p>Mecanismul de tratare a erorilor în API include:</p>
+        <ul>
+          <li>Convertirea excepțiilor în răspunsuri HTTP corespunzătoare</li>
+          <li>Clasele <code>Response200</code>, <code>Response400</code> și
+            <code>Response500</code> pentru formatarea răspunsurilor</li>
+          <li>Metoda <code>handleException</code> din
+            <code>ControllerInterface</code> pentru tratarea uniformă a
+            excepțiilor</li>
+          <li>Logging automat al erorilor pentru diagnosticare</li>
+          <li>Răspunsuri de eroare formatate în JSON pentru consum facil de
+            către client</li>
+        </ul>
+      </section>
+      <section id="initializare">
+        <h3>6.4 Inițializarea și pornirea sistemului</h3>
+        <p>Secvența de inițializare și pornire a sistemului include următorii
+          pași:</p>
+
+        <h4>6.4.1 Încărcarea configurației</h4>
+        <ol>
+          <li>Încărcarea fișierului application.properties</li>
+          <li>Inițializarea proprietăților și setărilor sistemului</li>
+          <li>Verificarea și validarea configurațiilor esențiale</li>
+        </ol>
+
+        <h4>6.4.2 Inițializarea bazei de date</h4>
+        <ol>
+          <li>Configurarea conexiunii la baza de date prin
+            <code>DatabaseManager</code></li>
+          <li>Verificarea existenței tabelelor necesare</li>
+          <li>Crearea tabelelor lipsă (dacă este necesar)</li>
+          <li>Verificarea structurii tabelelor și a constrângerilor</li>
+        </ol>
+
+        <h4>6.4.3 Pornirea serverului HTTP</h4>
+        <ol>
+          <li>Crearea și configurarea instanței <code>HttpServer</code></li>
+          <li>Înregistrarea filtrelor globale (CORS, XSS, JWT)</li>
+          <li>Configurarea contextelor pentru endpoint-uri prin metoda
+            <code>setupContexts</code></li>
+          <li>Înregistrarea controller-elor pentru fiecare endpoint</li>
+          <li>Pornirea serverului pe adresa și portul configurate</li>
+        </ol>
+
+        <h4>6.4.4 Configurarea statisticilor</h4>
+        <ol>
+          <li>Inițializarea serviciului de statistici</li>
+          <li>Generarea statisticilor inițiale pentru sistemul global</li>
+          <li>Configurarea programării pentru actualizarea periodică a
+            statisticilor</li>
+          <li>Generarea feed-ului RSS inițial</li>
+        </ol>
+      </section>
+    </section>
+
+    <section id="final" typeof="schema:Conclusion">
+      <h2>7. Considerații finale</h2>
+      <p>Backend-ul aplicației "Collect.me" reprezintă o fundație solidă pentru un sistem de gestionare a colecțiilor, implementând cele mai bune practici de dezvoltare software și securitate. Prin designul său modular și extensibil, sistemul poate evolua pentru a satisface cerințe în continuă schimbare și pentru a integra noi tehnologii și funcționalități.</p>
+      <p>Documentația tehnică prezentă servește ca referință pentru înțelegerea arhitecturii și funcționalităților sistemului, facilitând mentenanța, extinderea și integrarea sa în ecosistemul mai larg al aplicației.</p>
+    </section>
+  </body>
+</html>

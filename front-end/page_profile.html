@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <meta
+      name="description"
+      content="Manage your Collect.me profile settings. Update personal information, change passwords, configure privacy settings, and customize your collector profile."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="styles/auth1.css" >
+    <link rel="stylesheet" href="styles/global1.css" >
+    <link rel="stylesheet" href="styles/profile.css" >
+
+    <title>Profile - Collect.me</title>
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <p class="logo">Collect.me</p>
+        <div class="header_nav">
+          <a href="page_collections.html" class="button small-button">Landing</a>
+          <button
+            
+            id="logout-button"
+            class="button small-button"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div class="main-container">
+        <nav class="sidebar-nav">
+          <a href="page_explore.html" class="nav-item">
+            <span class="nav-icon">🔭</span>
+            <span>Explore</span>
+          </a>
+          <a href="page_collections.html" class="nav-item">
+            <span class="nav-icon">📁</span>
+            <span>Collections</span>
+          </a>
+          <a href="page_statistics.html" class="nav-item">
+            <span class="nav-icon">📊</span>
+            <span>Statistics</span>
+          </a>
+          <a href="page_profile.html" class="nav-item active">
+            <span class="nav-icon">👩🏻‍🎨</span>
+            <span>Profile</span>
+          </a>
+        </nav>
+
+        <div class="main-page">
+          <div class="page-description">
+            <p class="section-title">Your Profile</p>
+            <p class="section-description">
+              Manage your account settings and personal information
+            </p>
+          </div>
+
+          <div class="unique-page-container">
+            <div class="profile-container">
+              <div class="profile-header">
+                <div class="profile-avatar">
+                  <div class="avatar-circle">👤</div>
+                  <button class="change-avatar-btn">Change Avatar</button>
+                </div>
+                <div class="profile-info">
+                  <h2 class="profile-name">&nbsp;</h2>
+                  <p class="profile-email"></p>
+                  <p class="profile-joined"></p>
+                </div>
+              </div>
+
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <span class="stat-number collections-count"></span>
+                  <span class="stat-label">Collections</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number objects-count"></span>
+                  <span class="stat-label">Objects</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number total-value"></span>
+
+                  <span class="stat-label">Total Value</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number views-count"></span>
+                  <span class="stat-label">Views</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number likes-count"></span>
+                  <span class="stat-label">Likes</span>
+                </div>
+              </div>
+
+              <div class="profile-sections">
+                <div id="avatar-modal" class="avatar-modal">
+                  <div class="avatar-modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>Change Avatar</h3>
+                    <div class="upload-area">
+                      <input
+                        type="file"
+                        id="avatar-upload"
+                        accept="image/*"
+                        style="display: none"
+                      >
+                      <div
+                        class="upload-placeholder"
+                        onclick="document.getElementById('avatar-upload').click()"
+                      >
+                        <span>📷</span>
+                        <p>Click to upload image</p>
+                        <small>JPG, PNG, GIF up to 5MB</small>
+                      </div>
+                      <div
+                        id="image-preview"
+                        class="image-preview"
+                        style="display: none"
+                      >
+                     
+                      </div>
+                    </div>
+                    <div class="modal-actions">
+                      <button
+                        type="button"
+                        class="button"
+                        onclick="closeAvatarModal()"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        class="button submit_button"
+                        onclick="saveAvatar()"
+                      >
+                        Save Avatar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="profile-section danger-section green-section">
+                  <h3 class="section-title">Export Info</h3>
+                  <div class="danger-actions">
+                    <div class="danger-item green-item">
+                      <div class="danger-info">
+                        <h4 class="danger-title green-title">Export Data</h4>
+                        <p class="danger-description">
+                          Download all your data as PDF
+                        </p>
+                      </div>
+                      <button class="button small-button export-pdf">
+                        Export PDF
+                      </button>
+                    </div>
+
+                    <div class="danger-item green-item">
+                      <div class="danger-info">
+                        <h4 class="danger-title green-title">Export Data</h4>
+                        <p class="danger-description">
+                          Download all your data as CSV
+                        </p>
+                      </div>
+                      <button
+                        class="button small-button green-button export-csv"
+                      >
+                        Export CSV
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="profile-section">
+                  <h3 class="section-title">Change Username</h3>
+                  <form class="profile-form" id="username-form">
+                    <div class="form-field">
+                      <label for="new-username" class="sub_title"
+                        >New Username</label
+                      >
+                      <input
+                        type="text"
+                        id="new-username"
+                        class="field filed-username"
+                        value="collector_user"
+                        required
+                      >
+                      <div class="error-message" id="username-error"></div>
+                    </div>
+                    <div class="form-field">
+                      <label for="username-password" class="sub_title"
+                        >Current Password</label
+                      >
+                      <input
+                        type="password"
+                        id="username-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <div
+                        class="error-message"
+                        id="username-password-error"
+                      ></div>
+                    </div>
+                    <button type="submit" class="button submit_button">
+                      Update Username
+                    </button>
+                  </form>
+                </div>
+
+                <div class="profile-section">
+                  <h3 class="section-title">Change Email</h3>
+                  <form class="profile-form" id="email-form">
+                    <div class="form-field">
+                      <label for="new-email" class="sub_title">New Email</label>
+                      <input
+                        type="text"
+                        id="new-email"
+                        class="field filed-email"
+                        value="collector@email.com"
+                        required
+                      >
+                      <div class="error-message" id="email-error"></div>
+                    </div>
+                    <div class="form-field">
+                      <label for="email-password" class="sub_title"
+                        >Current Password</label
+                      >
+                      <input
+                        type="password"
+                        id="email-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <!-- <div
+                        class="error-message"
+                        id="email-password-error"
+                      ></div> -->
+                    </div>
+                    <button type="submit" class="button submit_button">
+                      Update Email
+                    </button>
+                  </form>
+                </div>
+
+                <div class="profile-section">
+                  <h3 class="section-title">Change Password</h3>
+                  <form class="profile-form" id="password-form">
+                    <div class="form-field">
+                      <label for="current-password" class="sub_title"
+                        >Current Password</label
+                      >
+                      <input
+                        type="password"
+                        id="current-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <div
+                        class="error-message"
+                        id="current-password-error"
+                      ></div>
+                    </div>
+                    <div class="form-field">
+                      <label for="new-password" class="sub_title"
+                        >New Password</label
+                      >
+                      <input
+                        type="password"
+                        id="new-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <div
+                        class="password-strength"
+                        id="password-strength"
+                      ></div>
+                      <div class="error-message" id="new-password-error"></div>
+                    </div>
+                    <div class="form-field">
+                      <label for="confirm-password" class="sub_title"
+                        >Confirm New Password</label
+                      >
+                      <input
+                        type="password"
+                        id="confirm-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <div
+                        class="error-message"
+                        id="confirm-password-error"
+                      ></div>
+                    </div>
+                    <button type="submit" class="button submit_button">
+                      Change Password
+                    </button>
+                  </form>
+                </div>
+
+                <div class="profile-section danger-section">
+                  <h3 class="section-title">Danger Zone</h3>
+                  <form class="profile-form" id="danger-form">
+                    <div class="form-field">
+                      <label for="danger-password" class="sub_title"
+                        >Confirm With Password</label
+                      >
+                      <input
+                        type="password"
+                        id="danger-password"
+                        class="field"
+                        autocomplete="on"
+                        required
+                      >
+                      <!-- <div
+                        class="error-message"
+                        id="email-password-error"
+                      ></div> -->
+                    </div>
+                    <button
+                      type="submit"
+                      class="button submit_button danger-btn"
+                    >
+                      Delete Account
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./scripts/auth-middleware.js "></script>
+
+    <script src="./scripts/global.js"></script>
+
+    <script src="./scripts/profile.js"></script>
+     
+    
+  </body>
+</html>
