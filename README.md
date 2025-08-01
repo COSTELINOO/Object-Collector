@@ -21,6 +21,31 @@ Să se dezvolte o aplicație Web destinată colecționarilor de obiecte de inter
 - Import/export de date folosind formate deschise – minim, CSV (Comma Separated Values) şi JSON (JavaScript Object Notation).
 - Respectarea cerinţelor de bază ale ingineriei software – e.g., comentarea şi modularizarea codului-sursă, utilizarea unui sistem de stocare şi management online al codului-sursă (e.g., Bitbucket, GitLab, GitHub etc.).
 
+## Videoclip de prezentare
+[Link către videoclipul de prezentare a aplicației](https://drive.google.com/file/d/1Y13D3pgOyOzQjGi_hNL0JGtVjh-gHJBF/view?usp=sharing)
+
+## Capturi de ecran
+<img width="1895" height="877" alt="1" src="https://github.com/user-attachments/assets/afbbeac9-63eb-48e9-905a-277b1fdbe8fa" />
+<img width="1881" height="876" alt="2" src="https://github.com/user-attachments/assets/b7e2cf8a-6fd6-4b11-a4a0-fda305b2a03f" />
+<img width="1893" height="878" alt="3" src="https://github.com/user-attachments/assets/b0d74019-c8c8-407c-b02c-d2ce95654ea0" />
+<img width="1893" height="841" alt="4" src="https://github.com/user-attachments/assets/99d0a141-6eec-40ac-8425-22d6527f132d" />
+<img width="1866" height="876" alt="5" src="https://github.com/user-attachments/assets/c7e13426-5a1f-4eee-9d33-50dfeed1cd1d" />
+<img width="1898" height="881" alt="6" src="https://github.com/user-attachments/assets/169c47f0-976b-4ee4-8735-6328369eb6f2" />
+<img width="1877" height="767" alt="7" src="https://github.com/user-attachments/assets/26360dbb-f728-43c7-891b-1d66790e2620" />
+<img width="1856" height="840" alt="8" src="https://github.com/user-attachments/assets/11fbb3e1-feb4-4f4c-909f-ac5fd6676c55" />
+<img width="1862" height="871" alt="9" src="https://github.com/user-attachments/assets/cd372e84-1a94-4fb6-94b8-f6a5051bb7c3" />
+<img width="1878" height="877" alt="10" src="https://github.com/user-attachments/assets/e9d46683-a31a-473c-8290-b6541b279a39" />
+<img width="1856" height="832" alt="11" src="https://github.com/user-attachments/assets/85a443ca-bb59-4da7-812d-2d31c451c456" />
+<img width="1040" height="877" alt="12" src="https://github.com/user-attachments/assets/c6a38806-7829-4f34-871c-e8aecfcaea8b" />
+<img width="1468" height="891" alt="13" src="https://github.com/user-attachments/assets/6904d46d-3c47-4298-a538-b5bcb6052a65" />
+<img width="1882" height="857" alt="14" src="https://github.com/user-attachments/assets/c41a3e1f-0083-4c6c-a5e2-a6baacd69e0f" />
+<img width="1865" height="877" alt="15" src="https://github.com/user-attachments/assets/fdc50ef0-4c40-4922-89c9-7a49dc8d6fa1" />
+<img width="1143" height="732" alt="17" src="https://github.com/user-attachments/assets/63a975ee-ad94-4776-9786-1d1ac68487ff" />
+<img width="1890" height="848" alt="18" src="https://github.com/user-attachments/assets/12a75188-b994-4354-b885-26a8ab0a1244" />
+<img width="1878" height="891" alt="19" src="https://github.com/user-attachments/assets/bc946dea-dfb2-4f99-95df-96249ae6e62c" />
+<img width="1882" height="872" alt="20" src="https://github.com/user-attachments/assets/62206554-aab3-4761-9882-dfaf4de18534" />
+
+
 # Sistem Backend - Aplicație "Collect.me"
 
 ## Cuprins
